@@ -10,5 +10,9 @@ python -c 'print("sum_nums_cypy {:,}".format('${N}'))'
 time ./sum_nums_cypy ${N}
 echo ""
 
+python -c 'print("sum_nums_py {:,}".format('${N}'))'
+time ./sum_nums_py ${N}
+echo ""
+
 python -c 'print("sum_nums_py.py {:,}".format('${N}'))'
 time ./sum_nums_py.py ${N}
