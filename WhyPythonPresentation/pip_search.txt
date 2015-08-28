@@ -1,0 +1,126 @@
+pymatgen                  - Python Materials Genomics is a robust materials analysis code that defines core object representations for structures and molecules with support for many electronic structure codes. It is currently the core analysis code powering the Materials Project (https://www.materialsproject.org).
+ftw.pdfgenerator          - A library for generating PDF representations of Plone objects with LaTeX.
+hyhyhy                    - Presentation nano-framework
+BitVector                 - A pure-Python memory-efficient packed representation for bit arrays
+gardendb                  - Simple python flat-file databases with Cucumbers: simple, version-controlled records with streamlined pickle representations.
+django-richtemplates      - Richtemplates is a set of templates (surprise!), template tags, media files
+providing presentation layer for Django based projects, similar to what
+Richfaces library offers for J2EE developers - not outstanding but still nice
+looking and elegant.
+cbor                      - RFC 7049 - Concise Binary Object Representation
+ConceptNet                - A Python API to a Semantic Network Representation of the Open Mind Common Sense Project
+bruce                     - Bruce, the Presentation Tool, puts reStructuredText in your projector
+UxADT                     - Universal (cross-language) extensible representation for algebraic data type instances.
+vs.org                    - Plone 4 add-on: Representation of organisational structures
+accordion_presentation    - It is a simple horizontal accordion for django cms
+openslides                - Presentation and assembly system
+dolmen.file               - A Zope3/Grok File Representation package.
+django-player             - Django-based Presentation Layer, focused on present contents extracted from CMSs
+zope.filerepresentation   - File-system Representation Interfaces
+ppp_datamodel_notation_parser - A module parsing a human-writable representation of a question tree.
+Products.Person           - A representation of a person.
+Products.Organization     - A representation of an organization.
+wtforms-jsonschema        - wtforms-jsonschema converts WTForms into JSON Schema compatibile representations
+collective.ptg.presentation - Adds a presentation gallery layout to collective.plonetruegallery
+marbl-python              - A Python implementation of the Marbl specification for normalized representations of Markov blankets in Bayesian networks.
+rst2beamer                - A docutils writer and script for converting restructured text to the Beamer presentation format
+texttree                  - Parse textual representations of strings using indentation for nesting
+django-dajax              - Easy to use library to create asynchronous presentation logic with django and dajaxice
+pipped                    - a pip package containing a presentation
+on ho to publish pip packages
+sphinxjp.themes.s6        - A sphinx theme for generate S6 presentation. #sphinxjp
+gpxdata                   - Object-Oriented representation of GPX documents and conversion utilities between GPX, KML and OVL
+Products.Work             - A representation of a work.
+sphinxjp.themes.revealjs  - A sphinx theme for generate reveal.js presentation. #sphinxjp
+django-respite            - Respite conforms Django to Representational State Transfer (REST)
+colour                    - converts and manipulates various color representation (HSL, RVB, web, X11, ...)
+PresentationViewer        - UNKNOWN
+mm2s5                     - Convert a FreeMind mind-map (mm) into an S5 (html) presentation
+rst2beamer3k              - A docutils writer and script for converting restructured text to the Beamer presentation format
+xmiparser                 - XMI Parser (API for the UML XML representation specified by OMG)
+sphinxjp.themes.htmlslide - A sphinx theme for generate HTML Slide presentation. #sphinxjp
+hovercraft                - Makes impress.js presentations from reStructuredText
+sysscope                  - sysscope - Tool for visual representation of RRDtool's Round Robin Databases.
+understate                - markdown presentations using ncurses
+CodeShow                  - CodeShow turns a directory of code into a static website suitable for use in presentations.
+sphinxjp.themes.impressjs - A sphinx theme for HTML presentation style.
+uml2orm                   - UML to ORM is a tool to convert UML representations of databases to a proper  set of classes that you and your ORM can use to manipulate your database. It  also creates SQL code if you wish to.
+SpiNNMachine              - Representation of a SpiNNaker Machine
+django-dojoserializer     - Serializes django model instances to a dojo data compatible JSON representation
+str2type                  - Convert a string representation of an int, float, None, True, False, or JSON to its native type.      For None, True, and False, case is irrelevant.
+xml2ddl                   - Xml to DDL is a set tools to convert an XML representation of a database into a set of SQL (or DDL) commands and vice versa.
+pydozeoff                 - Web-based presentation engine for programmers
+semanticeditor            - A Django CMS plugin for editing text with presentation and layout in a semantic way.
+collective.slideshare     - Easily publish your presentations on slideshare
+pptshape                  - Extract images from PowerPoint presentation files for Sphinx.
+tastypie_celery_resource  - Tastypie Resource - representation of Celery Task
+json2html                 - JSON object to human readable HTML representation
+oppa                      - Presentation and lecture support tool
+collective.sectionsubskin - Apply a marker interface to a request to code for special presentation of a subsection.
+ng.ftp                    - Replication-oriented ftp presentation of zope3 components
+natto                     - Intended as a debug tool, natto returns a representation of python data structures as pretty HTML tables.
+StarScream                - StarScream is a presentation tool
+Presenter                 - The presentation tool designed for control freaks.
+lazy_slides               - Build a presentation by downloading images based on keywords.
+prescons                  - Presentation Console
+luminescence              - An application for generating HTML presentations from Markdown sources.
+RDFdict                   - A class for creating a nested dictionaries representation of RDF quads or triples
+FlowUI                    - A flow-based data presentation framework for terminals
+flags                     - Packing and unpacking integer representations of binary flags
+presentty                 - Console-based presentation system
+vari                      - Python color representation conversions
+django-dajax-ng           - Easy to use library to create asynchronous presentation logic with django and dajaxice-ng
+pypresenter               - Presentations from the CommandLine
+django-localdates         - An addition to django that allows better presentation of date strings in a local way.
+django-jsonschema         - django-jsonschema converts Django Forms into JSON Schema compatibile representations
+byteformat                - Generate human-readable representations of numbers of bytes.
+datetime-interval         - A representation of a duration of time
+NetCIDR                   - Object representations, operations and logic for hosts, networks, and collections of networks.
+zedonk                    - Progress - Convert a set unit, value, and range to progress representation.
+respite                   - Respite conforms Django to Representational State Transfer (REST)
+featurevectormatrix       - Python class to encapsulate different representations of large datasets
+tenpy                     - Template engine which realized the concept of 'Independence of Presentation Logic' for Python 3
+SourceBrowser             - A documentation meta-programming tool that generates a wiki-like representation of a source tree.
+Bit2DArray                - A memory-efficient packed representation for 2D bit arrays
+Gnosis                    - Parses XML into Python object representation
+tawq                      - Build presentations with YAML, Markdown, and jQuery Mobile
+twentytab-model-to-bidimensional - A django app that returns a bidimensional representation of a given model and queryset following foreign keys recursively
+jz.filerepresentation     - File representation components (zope).
+deepwalk                  - DeepWalk online learning of social representations.
+configen                  - instantiate a template from various parameter representations.
+dublincore                - Dublin Core metadata representation and generation
+prysenter                 - A minimal, text-only, terminal-only presentation runner.
+rst2html5slides           - rst2html5slides extends rst2html5 to generate a deck of slides from a reStructuredText file that can be used with any web presentation framework such as impress.js, jmpress.js or deck.js.
+unicode-slugify-latin     - A slug generator that turns strings into unicode slugs, and enables replacement for common latin letters into ascii representations.
+cachingproxy              - CachingProxy magically records usage of arbitrary objects and allows you to replay the same behavior later (with serializable representation that can be stored on disk)
+rs5                       - Presentation manager
+strongtime                - Strongly-typed time and sequence representations for audio/video.
+hexahexacontadecimal      - Encode and decode hexahexacontadecimal numbers, a compact number representation for URLs.
+pytimeago                 - Human-oriented representation of time deltas, a Python library
+md2slides                 - Python package to convert mardown files into html presentations.
+BitArray2D                - A memory-efficient packed representation for 2D bit arrays (This is a renamed version of the Bit2DArray module)
+Adytum-NetCIDR            - Object representations, operations and logic for hosts, networks, and collections of networks.
+Presentations             - Presentations using reveal.js
+pypres                    - Presentation in a Python REPL
+browsercast               - An IPython Notebook plugin which allows IPython Notebook notebooks to be set to audio, creating a screencast-style presentation in the browser - a browser cast.
+plonetheme.corporatemale  - An elastic layout presentation suitable for a corporate business.
+django-representations    - Django templatetag for representing models
+s5server                  - A simple S5 presentations serving server using ReST source files
+bigO                      - Symbolic representation of big-O notation.
+DescribedRoutes           - Dynamic, framework-neutral metadata describing path/URI structures natively in Python and through JSON and YAML representations.
+hypermedia                - Links representations together.
+ncobj                     - Python object representation of NetCDF4 data
+basin                     - A Python module for generating string representations of integers and bytestrings with arbitrary base and alphabet.
+python-pydown             - An HTML5 presentation builder written by python
+awesome_lib               - EBB group retreat package presentation
+kryten                    - Convert code into a presentation
+FileCatalog               - Tools to create, view and transform hierachical YAML representations of directory structures.
+humanhash                 - Human-readable representations of digests.
+cascajal                  - PDF generation for Hieroglyph presentations.
+fixreal                   - Defines a set of function to convert number between fixed and floating point representations
+BitPacket                 - A Python representation for bit field structures
+plimsolls                 - Presentation helpers based on Plim
+filepath                  - Object-oriented filesystem path representation.
+collective.jsonify        - provide json representation for content in Plone 2.0, 2.1, 2.5 and above
+InkscapeSlide             - Inkscape Slide - the Inkscape Presentation maker
+slides                    - A docutils writer and script for converting restructured text to the Beamer presentation format

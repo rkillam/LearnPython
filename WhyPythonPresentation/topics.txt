@@ -1,0 +1,369 @@
+Intro:
+    Richard Killam
+    4th Year BSSWE
+
+Outline:
+    Python Success Stories
+    Python as a Community
+    Elegant Syntax
+    Powerful Builtin Constructs
+    Multi Language Support
+    Tools
+
+Success Stories:
+    Civ IV
+    Eve (Stackless Python)
+    Dropbox
+    Google
+    IceCube
+    LucasFilm
+    NASA
+    Reddit
+    Ubuntu
+
+Community Reasons:
+    Free (Matlab vs Octave)
+    Opensource:
+        Community driven
+        Anyone can contribute (within reason, i.e. Guido)
+        PEP8:
+            snake_case_everything
+            CapitalCamelCase class names
+            _private_arg
+            __hidden_private_arg (can't be seen by getattr)
+            avoid_keyword_conflict_
+            __magic_attributes__ (not really though)
+
+            Consistent conventions:
+                str_replace(substring, replacewith, instring) vs string.replace(search, replacewith)
+                strstr(instring, substring) vs string.index(substring)
+                    different naming conventions (also what does strstr mean?)
+                    different parameter ordering
+
+                htmlspecialchars_decode
+                get_html_translation_table
+                    suddently snake_case?
+
+        batteries and pip
+
+Simple Syntax Reasons:
+    Explicit:
+        whitespace:
+            int s = 0;
+            for(int i = 0; i < 10; ++i)
+                printf("%d + %d\n", s, i);
+                s += i;
+
+            s = 0
+            for i in xrange(10):
+                print("%d + %d" % (s, i))
+                s += i
+
+            forces good, consistent coding standards
+
+        self:
+            class Test {
+                private int x;
+                public Test(int x) {
+                    print(x);
+                }
+                public void printX() {
+                    print(x)
+                }
+            }
+
+            class Test(object):  # Clearly inheriting from object
+                # Clear use of instance vars through self
+                def __init__(self, x):
+                    self.x = x
+                def printx():
+                    print(self.x)
+                    print(x)  # NameError: global name 'x' is not defined
+
+    Looks like Math and Reads like English
+
+    inequality and assignment chaining:
+        1 < x < y < z < 10
+        x = y = z = 1
+
+    for(int i = 0; i < my_list.length; ++i) vs for variable in my_list
+
+    if x in my_list:
+        O(n) but really well optimized
+
+
+Complex Language Feature Reasons:
+    Simple, powerful builtin datastructures:
+        All time complexity info from:
+            https://wiki.python.org/moin/TimeComplexity
+
+        lists:
+            l = [[1] * n] * n
+
+            list comprehension:
+                [2**i for i in xrange(5)] => [1, 2, 4, 8, 16]
+                resembles math
+
+                more flexible and expressive than map, filter, reduce:
+                    no lambda:
+                        python -mtimeit -s'l=range(10)' 'map(hex, l)'
+                            100000 loops, best of 3: 4.86 usec per loop
+
+                        python -mtimeit -s'l=range(10)' '[hex(x) for x in l]'
+                            100000 loops, best of 3: 5.58 usec per loop
+
+                    lambda:
+                        python -mtimeit -s'l=range(10)' 'map(lambda x: x+2, l)'
+                            100000 loops, best of 3: 4.24 usec per loop
+
+                        python -mtimeit -s'l=range(10)' '[x+2 for x in l]'
+                            100000 loops, best of 3: 2.32 usec per loop
+
+                    slower with lambda:
+                        could make lambda into separate function but why bother?
+                        comprehensions more math like:
+                            set notation = {x + 2 | forall x in l}
+
+                        more consistent with english:
+                            "I want a list of all of the items in l plus 2"
+                                            vs
+                            "Map item + 2 for all items in l"
+
+            array slicing and negative indexing:
+                my_list[my_list.length - 1] vs my_list[-1]
+
+                for(int i = 1; i < my_list.length; i += 2) vs my_list[1::2]
+
+                range(5)[1:]    => [1, 2, 3, 4]
+                range(5)[:-1]   => [0, 1, 2, 3]
+                range(5)[1:3]   => [1, 2]
+                range(10)[::2]  => [0, 2, 4, 6, 8]
+                range(10)[1::2] => [1, 3, 5, 7, 9]
+
+        sets:
+            removes duplicates:
+                set([1, 2, 3, 4, 1, 2, 9, 10]) => {1, 2, 3, 4, 9, 10}
+
+            if x in myset:
+                Avg case: O(1)
+                Worst case: O(n)
+
+            Math based set operations:
+                menu = {"pancakes", "ham", "eggs", "bacon"}
+                new_menu = {"coffee", "ham", "eggs", "bacon", "bagels"}
+
+                new_menu.difference(menu) == new_menu - menu
+                    => {"bagels", "coffee"}
+                    => O(len(new_menu))
+
+                menu.difference(new_menu) == menu - new_menu
+                    => {"pancakes"}
+                    => O(len(menu))
+
+                new_menu.intersection(menu) == new_menu & menu
+                    => {"eggs", "bacon", "ham"}
+                    => Avg: O(min(len(new_menu), len(menu)))
+                    => Worst: O(len(new_menu) * len(menu))
+
+                new_menu.union(menu) == new_menu | menu
+                    => {
+                            "bacon",
+                            "bagels",
+                            "coffee",
+                            "eggs",
+                            "ham",
+                            "pancakes"
+                       }
+                    => O(len(new_menu) + len(menu))
+
+                new_menu.symmetric_difference(menu) == new_menu ^ menu
+                    => {"pancakes", "coffee", "bagels"}
+                    => Avg: O(len(new_menu))
+                    => Worst: O(len(new_menu) * len(menu))
+
+            set comprehension:
+                {i % 5 for i in xrange(10)} => {0, 1, 2, 3, 4}
+
+        dicts:
+            builtin hashmap
+            O(1) lookups:
+                mydict.get(key)  # val or None if DNE
+
+            dict comprehension:
+                {obj.name: obj.data for obj in my_objs}
+
+    Context Managers:
+        What are they?
+            Handles allocation and release of a resource
+
+            This:
+                foo = None
+                try:
+                    foo = open('file.txt', 'r')
+                    Do stuff...
+                finally:
+                    if f is not None:
+                        f.close()
+
+            Becomes:
+                with open('file.txt', 'r') as f:
+                    Do stuff
+
+        Why use them?
+            Avoid verbose repeat code
+            Ensure release is handled properly
+
+        Example uses:
+            Opening a file
+            Locking a thread
+            Ensure successful db transaction before commit
+            Holding some I/O
+
+    Decorators:
+        What are they?
+            Classes or higher order functions that wrap a given function (or class)
+
+            This:
+                def my_f(...):
+                    Do stuff...
+                    ret = f(...)
+                    Do more stuff...
+                    return ret
+
+            Becomes:
+                @my_decorator
+                def f(...):
+                    ...
+
+        Why use them?
+            Avoid repeat code
+            Closures allow for state retention (memoization, aggregation, etc)
+
+        Example uses:
+            argument/return checking
+            memoization
+
+            logging (decorate class)
+
+            thunkifying (threading) (https://wiki.python.org/moin/PythonDecoratorLibrary#Lazy_Thunkify)
+            function timeout (https://wiki.python.org/moin/PythonDecoratorLibrary#Function_Timeout)
+
+
+    Generators:
+        What are they?
+            An easy way to support iterations
+
+            This:
+                class Test(object):
+                    def __init__(self, start, end):
+                        self.count = start
+                        self.end = end
+                    def __iter__(self):
+                        return self
+                    def next(self):
+                        if self.count >= self.end:
+                            raise StopIteration
+                        r = self.count
+                        self.count += 1
+                        return r
+
+            Becomes:
+                def test(start, end):
+                    while start < end:
+                        yield start
+                        start += 1
+
+        Why use them?
+            lazy evaluation
+            process infinite data
+
+        Example uses:
+            process text files
+            co-routines:
+                producer / consumer
+
+            genex (generator expressions):
+                sum(x**3 for x in my_list if x % 2 == 0)
+
+CPython / Jython / pyjs / PyObjc / Iron Python / Rpython:
+    Allows continued usage of legacy code
+
+Django
+
+Ipython and notebooks:
+    Ipython:
+        Featureful python REPL
+
+        explore objects (object?)
+            ex:
+                a = range(10)
+                a?
+
+        magic functions:
+            built in help:
+                %magic
+                %lsmagic
+                %magic_name?
+
+            run:
+                executes programs
+                -t times
+                -d gdb style debug (pdg)
+                -p profile
+
+            edit files
+
+            easily rerun previous code:
+                rerun [start]-[end]
+
+            easy shell interaction:
+                !<command>
+
+                multi language support:
+                    %%bash
+                    %%latex
+                    %%javascript
+                    %%perl
+                    %%pypy
+                    %%ruby
+
+            customizable:
+                ipython profile create
+                startup scripts
+                editor
+                prompts
+
+    Notebooks:
+        Easilty share and present
+
+
+pylab:
+    numpy:
+        1. An array object of arbitrary homogeneous items
+        2. Fast mathematical operations over arrays
+        3. Linear Algebra, Fourier Transforms, Random Number Generation
+        (From the numpy documentation)
+
+    scipy:
+        32 subpackages for scienctific and mathimatical operations:
+            Linear Solvers
+            Statistical Functions
+            Optimization Tools
+            etc
+
+    matplotlib:
+        Simple, easy to use plotting library
+
+    scikit-learn (sklearn):
+        Simple, easy to use machine learning library
+
+    pandas:
+        A powerful data analysis and manipulation library for Python (datastructures)
+
+Easter Eggs:
+    import antigravity
+    from __future__ import braces
+    import this
+
+Recommended tutorial site:
+    http://www.python-course.eu/

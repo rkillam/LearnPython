@@ -1,0 +1,608 @@
+\documentclass[11pt]{beamer}
+\usetheme{Copenhagen}
+\usecolortheme{dolphin}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{datetime}
+\usepackage{fancyhdr}
+\usepackage{gensymb}
+\usepackage{graphicx}
+\usepackage{lastpage}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{pgfpages}
+\usepackage{setspace}
+\usepackage{tikz}
+
+% Code snippets
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{
+  basicstyle={\small\ttfamily},
+  breakatwhitespace=true,
+  breaklines=true,
+  columns=flexible,
+  commentstyle=\color{dkgreen},
+  escapeinside={(*@}{@*)},
+  keywordstyle=\color{blue},
+  numbers=none,
+  numberstyle=\color{gray},
+  showstringspaces=false,
+  stringstyle=\color{mauve},
+  tabsize=2,
+  language=Python,
+  morekeywords={as, None, with, yield}
+}
+
+\newcommand{\code}[1]{
+\begin{lstlisting}
+#1
+\end{lstlisting}}
+
+\newcommand{\emptyline}{$ $\\}
+
+\author{Richard Killam}
+\title{Why Python?}
+
+%\setbeamercovered{transparent} 
+
+\setbeamertemplate{navigation symbols}{}
+%\setbeamertemplate{note page}[plain]
+%\setbeameroption{show notes on second screen=right}
+
+\addtobeamertemplate{frametitle}{}{
+\begin{tikzpicture}[remember picture,overlay]
+\node[anchor=north east,yshift=0pt] at (current page.north east) {\includegraphics[height=0.8cm]{python-logo.png}};
+\end{tikzpicture}}
+
+%\date{} 
+%\institute{} 
+%\logo{} 
+%\subject{} 
+
+\begin{document}
+	\centering
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+	\begin{frame}{Outline}
+		\begin{multicols}{2}
+			\tableofcontents
+		\end{multicols}
+	\end{frame}
+
+	\section{Motivation}
+		\begin{frame}{Python Success Stories}
+			\begin{itemize}
+				\item Civ IV   
+				\item Eve
+    				\item Dropbox
+    				\item Google
+    				\item IceCube
+    				\item LucasFilm
+    				\item NASA
+    				\item Reddit
+    				\item Ubuntu
+			\end{itemize}
+		\end{frame}
+		
+		\begin{frame}{Biggest Motivator}
+			\pause
+    			\fontsize{30pt}{20pt}\selectfont
+    			It's Free! \\
+    			\emptyline
+    			\& \\
+    			\emptyline
+    			Open Source!
+		\end{frame}
+	
+	\section{Community}
+	\subsection{PEP 8}
+		\begin{frame}[fragile]{PEP 8 Rules}
+			\begin{itemize}
+				\item snake\_case\_everything
+				\item except CapitalCamelCase class names
+				\item \_private\_variable
+				\item \_\_hidden\_private\_variable (Can't be seen by getattr)
+				\item avoid\_keyword\_conflict\_
+				\item \_\_magic\_functions\_\_ (Not as magical as advertised)
+				\item Indentation, use spaces in multiples of 4 (4, 8, 12, ...)
+				\item And many others (it's a really long list)
+			\end{itemize}
+		\end{frame}
+		
+		\begin{frame}[fragile]{PEP 8 Results}
+			PHP v.s. Python
+			\emptyline
+			\emptyline
+			
+			\begin{itemize}
+				\item<1-> strstr(string, substring) \uncover<2->{v.s. string.index(substring)}
+
+				\item<3-> str\_replace(substring, replace\_with, string) \uncover<4->{v.s. string.replace(substring, replace\_with)}
+							
+				\item<5-> htmlspecialchars\_decode
+				\item<5-> get\_html\_translation\_table
+			\end{itemize}
+		\end{frame}
+		
+	\subsection{Libraries}
+		\begin{frame}{Batteries}
+			\begin{itemize}
+				\item Over 500 built-in libraries
+				\item High performance wrappers of C libraries
+				\item PIP: \textbf{P}ip \textbf{I}nstalls \textbf{P}ython has over 100 easy to install packages
+				\item Github has 102,178 repositories written in Python, for Python
+				\begin{itemize}
+					\item[] Github user vinta compiled a list of awesome python packages: \url{https://github.com/vinta/awesome-python}
+				\end{itemize}
+			\end{itemize}
+		\end{frame}
+		
+	\section{Simple Syntax}
+	\subsection{Explicit}
+		\begin{frame}[fragile]{Whitespace}
+			What does this do?
+			\emptyline
+			\emptyline
+			\emptyline
+
+			\begin{minipage}{0.45\linewidth}
+    				C-style (Java with printf):
+			\end{minipage}	
+			\begin{minipage}{0.45\linewidth}
+    				Python:	
+			\end{minipage}	
+			
+			\begin{minipage}{0.45\linewidth}
+				\begin{lstlisting}[language=Java, basicstyle=\small]
+					int s = 0;
+					for(int i = 0; i < 10; ++i)
+					  printf("%d + %d\n", s, i);
+					  s += i;
+				\end{lstlisting}
+			\end{minipage}			
+			\pause 
+			\begin{minipage}{0.45\linewidth}
+				\begin{lstlisting}[basicstyle=\small]
+					s = 0;
+					for i in xrange(10):
+					  print("%d + %d\n" % (s, i))
+					  s += i
+				\end{lstlisting}
+			\end{minipage}
+		\end{frame}
+		
+		\begin{frame}[fragile]{\textbf{self}}
+			What does this do?
+			\emptyline
+			\emptyline
+			
+			\begin{minipage}{0.45\linewidth}
+    				C-style (Java with printf):
+			\end{minipage}	
+			\begin{minipage}{0.45\linewidth}
+    				Python:	
+			\end{minipage}				
+
+			\begin{minipage}{0.45\linewidth}
+				\begin{lstlisting}[language=Java, basicstyle=\small]
+					class Test {
+					    private int x;
+					    public Test(int x) {
+					    	    this.x = 2;
+					    	    printf("%d\n", x);
+					    	}
+					    	public void printX() {
+					    	    printf("%d\n", x);
+					    	}
+					 }
+				\end{lstlisting}
+			\end{minipage}			
+			\pause 
+			\begin{minipage}{0.45\linewidth}
+				\begin{lstlisting}[basicstyle=\small]
+					class Test(object):
+
+					    def __init__(self, x):
+					        self.x = 2
+					    	    print(x)
+					    	
+					    	def print_x(self):
+					    	    print(self.x)
+				\end{lstlisting}
+			\end{minipage}
+		\end{frame}
+		
+	\subsection{Readable}
+		\begin{frame}[fragile]{Looks like \textbf{Math}, Reads like \textbf{English}}
+			\begin{itemize}
+				\item<1-> (In)equality Chaining:
+				\begin{itemize}
+					\item $1 < x < y < z < 10$
+					\item $x = y = z = 2$
+				\end{itemize}
+				
+				\item<2-> 
+				\begin{lstlisting}[language[Java]]
+					for(int i = 0; i < my_list.length; ++i)
+				\end{lstlisting} 
+				$\qquad$ v.s.
+				\begin{lstlisting}
+				for variable in my_list
+				\end{lstlisting}
+				
+				\item<3-> 
+				\begin{lstlisting}
+					if x in my_list
+				\end{lstlisting}
+				\uncover<3->{Still O(n) but incredibly well optimized}
+			\end{itemize}
+		\end{frame}
+		
+	\addtocontents{toc}{\newpage}
+		
+	\section{Built-in Data Structures}
+	\subsection{list}
+		\begin{frame}[fragile]{List Creation}
+			\begin{itemize}
+				\item<1-> List multiplication (works for strings too)
+				\begin{lstlisting}
+					my_list = [[1] * 2] * 2 (*@$\Rightarrow$@*) [[1, 1], 
+					                               [1, 1]]
+				\end{lstlisting}
+				
+				\item<2-> List comprehension
+				\begin{lstlisting}
+					[2**i for i in xrange(5)] (*@$\Rightarrow$@*) [1, 2, 4, 8, 16]
+				\end{lstlisting}
+			\end{itemize}
+		\end{frame}
+		
+		\begin{frame}[fragile]{List comprehension v.s. filter, lambda, map, reduce}
+			\begin{itemize}
+			\item<1->
+			\begin{lstlisting}[language=Bash]
+			python -mtimeit -s'l=range(10)' 'map(lambda x:x+2,l)'
+			    100000 loops, best of 3: 4.24 usec per loop
+
+			python -mtimeit -s'l=range(10)' '[x+2 for x in l]'
+			    100000 loops, best of 3: 2.32 usec per loop
+			\end{lstlisting}
+
+			\item<2-> Comprehensions more math like: set notation = $\{x + 2 \mid \forall x \epsilon l\}$
+
+			\item<2-> More consistent with english: \\
+				\centering{"Map item + 2 for all items in l"} \\
+				\centering{v.s.} \\
+				\centering{"I want a list of all of the items in l plus 2"}
+			\end{itemize}
+		\end{frame}
+		
+		\begin{frame}[fragile]{List Indexing}
+			\begin{itemize}
+				\item<1-> my\_list[my\_list.length - 1] \uncover<2->{v.s. my\_list[-1]}
+				
+				\item<3-> 
+				\begin{lstlisting}[language=Java]
+				for(int i = 1; i < my_list.length; i += 2)
+				\end{lstlisting}
+				\uncover<4->{v.s. my\_list[1::2]}
+				
+				\item<5->
+				\begin{itemize}
+                		\item[] range(5)[1:]    $\:\:\:\:\:\Rightarrow$ [1, 2, 3, 4]
+                		\item[] range(5)[:-1]   $\:\:\:\:\Rightarrow$ [0, 1, 2, 3]
+                		\item[] range(5)[1:3]   $\:\:\:\Rightarrow$ [1, 2]
+                		\item[] range(10)[::2]  $\:\:\Rightarrow$ [0, 2, 4, 6, 8]
+                		\item[] range(10)[1::2] $\Rightarrow$ [1, 3, 5, 7, 9]
+				\end{itemize}
+			\end{itemize}
+		\end{frame}
+		
+	\subsection{set}
+		\begin{frame}[fragile]{Sets}
+			\begin{itemize}
+				\item<1-> Remove duplicates:
+				\begin{lstlisting}
+					set([1, 2, 3, 4, 1, 2, 3, 4]) (*@$\Rightarrow$@*) {1, 2, 3, 4}
+				\end{lstlisting}
+				
+				\item<2->
+				\begin{lstlisting}
+					if x in my_set:
+				\end{lstlisting}
+				\begin{itemize}
+					\item<2->[Avg:] \textbf{O(1)}
+					\item<2->[Worst:] O(n)
+				\end{itemize}
+			\end{itemize}
+		\end{frame}
+		
+		\begin{frame}[fragile]{Set Operations}
+			\begin{itemize}
+				\item set1 - set2 == set1.difference(set2) \\ O(len(set1))
+				\pause
+					
+				\item set1 \& set2 == set1.intersection(set2) \\ Avg: O(min(len(set1, set2)))
+				\pause				
+								
+				\item set1 $|$ set2  == set1.union(set2) \\ O(len(set1)+len(set2))
+				\pause
+						
+				\item set1 \^{} set2 == set1.symmetric\_difference(set2) \\ Avg: O(len(set1))
+			\end{itemize}
+		\end{frame}
+		
+	\subsection{dict}
+		\begin{frame}[fragile]{Dictionaries}
+			\begin{itemize}
+				\item Built-in hash map
+				
+				\item O(1) lookups:
+				\begin{lstlisting}
+				    my_dict.get(key)  # None if key does not exist
+				\end{lstlisting}
+				
+				\item dict comprehension:
+				\begin{lstlisting}
+					{obj.name: obj.data for obj in my_objs}
+				\end{lstlisting}
+				
+				\item Easy looping:
+				\begin{lstlisting}
+					for key, val in my_dict.items():
+					    print('{}: {}'.format(key, val))
+				\end{lstlisting}
+			\end{itemize}
+		\end{frame}
+		
+	\section{Language Constructs}
+	\subsection{Context Managers}
+		\begin{frame}[fragile]{What are Context Managers?}
+			Handles allocation and release of a resource \\
+			\emptyline
+			\emptyline
+			
+			\begin{minipage}{0.45\linewidth}
+				This:
+			\end{minipage}
+			\begin{minipage}{0.45\linewidth}
+				Becomes:
+			\end{minipage}
+			
+			\begin{minipage}{0.45\linewidth}
+				% FIXME: have a better representation of what with open does
+				\begin{lstlisting}
+				f = None
+				try:
+				    f = open('f.txt', 'r')
+				    # Do stuff...
+				finally:
+				    if f is not None:
+				        f.close()
+				\end{lstlisting}
+			\end{minipage}
+			\pause
+			\begin{minipage}{0.45\linewidth}
+				\begin{lstlisting}
+				with open('f.txt', 'r') as f:
+				    # Do stuff...
+				\end{lstlisting}
+			\end{minipage}
+		\end{frame}
+		
+		\begin{frame}[fragile]{Why use Context Managers?}
+			\begin{itemize}
+				\item Avoid verbose repeat code
+				\item Ensure release is handled properly
+				\item Variable scope retention
+			\end{itemize}
+		\end{frame}
+		
+		\begin{frame}[fragile]{Context Manager Uses}
+			\begin{itemize}
+				\item Ensure successful db transaction before commit
+				\item Holding some I/O
+				\item Locking a thread
+				\item Opening a file
+			\end{itemize}
+		\end{frame}
+	
+	\subsection{Decorators}
+		\begin{frame}[fragile]{What are Decorators?}
+			Classes or higher order functions that wrap a given function or class \\
+			\emptyline
+			\emptyline
+			
+			\begin{minipage}{0.45\linewidth}
+				This:
+			\end{minipage}
+			\begin{minipage}{0.45\linewidth}
+				Becomes:
+			\end{minipage}
+			
+			\begin{minipage}{0.45\linewidth}
+				\begin{lstlisting}
+					def my_f(...):  
+					    Do stuff...         
+					    ret = f(...)        
+					    Do more stuff...    
+					    return ret
+				\end{lstlisting}
+			\end{minipage}
+			\pause
+			\begin{minipage}{0.45\linewidth}
+				\begin{lstlisting}
+					@my_decorator
+					def f(...):
+					    ...
+				\end{lstlisting}
+			\end{minipage}
+		\end{frame}
+		
+		\begin{frame}[fragile]{Why use Decorators?}
+			\begin{itemize}
+				\item Avoid verbose repeat code
+				\item Closures allow for state retention:
+				\begin{itemize}
+					\item[] aggregation, memoization, etc
+				\end{itemize}
+			\end{itemize}
+		\end{frame}
+		
+		\begin{frame}[fragile]{Decorator Uses}
+			\begin{itemize}
+				\item Argument/return checking
+				\item Function timeout
+				\item Logging (decorate class)
+				\item Memoization
+				\item Thunkifying (Parallelizing)
+			\end{itemize}
+		\end{frame}
+	
+	\subsection{Generators}
+		\begin{frame}[fragile]{What are Generators?}
+			An easy way to support iterations \\
+			
+			\begin{minipage}{0.45\linewidth}
+				This:
+			\end{minipage}
+			\begin{minipage}{0.45\linewidth}
+				Becomes:
+			\end{minipage}
+			
+			\begin{minipage}{0.45\linewidth}
+				\begin{lstlisting}
+					class Test(object):
+					    def __init__(sf,s,e):
+					        sf.c = s
+					        sf.e = e 
+					    def __iter__(sf):
+					        return sf
+					    def next(sf):
+					        if sf.c>=sf.e:
+					            raise StopIter
+					        r = sf.c
+					        sf.c += 1
+					        return r
+				\end{lstlisting}
+			\end{minipage}
+			\pause
+			\begin{minipage}{0.45\linewidth}
+				\begin{lstlisting}
+					def test(start, end):
+					    while start < end:
+					        yield start     
+					        start += 1
+				\end{lstlisting}
+			\end{minipage}
+		\end{frame}
+		
+		\begin{frame}[fragile]{Why use Generators?}
+			\begin{itemize}
+				\item Lazy evaluation
+				\item Less memory usage
+			\end{itemize}
+		\end{frame}
+		
+		\begin{frame}[fragile]{Generator Uses}
+			\begin{itemize}
+				\item Co-routines (producer/consumer) using two-way generators
+				\item Interpolations/regressions (unknown number of iterations)
+				\item Process text files
+			\end{itemize}
+		\end{frame}
+		
+	\section{Python and Scientific Computing}
+		\begin{frame}{IPython}
+			Featureful Python REPL
+			\emptyline
+			\emptyline
+			\emptyline
+			\pause
+			
+			\begin{itemize}
+				\item Explore objects (my\_obj?)
+				\item Magic functions (debug, edit, run, timeit, ...)
+				\item Multi shell support (bash, javascript, latex, perl, pypy, ruby)
+				\item Notebooks allow for fast and easy sharing of code and data 
+			\end{itemize}
+		\end{frame}
+		
+		\begin{frame}{Scientific Computing Libraries}
+			\begin{itemize}
+				\item \textbf{numpy}: Flexible array structures for fast mathematical operations
+				\item \textbf{pandas}: A powerful data analysis and manipulation library
+				
+				\item \textbf{scipy}: 32 subpackages for scientific and mathematical operations				
+				\item \textbf{scikit-learn (sklearn)}: Easy to use machine learning library
+				\item \textbf{nltk}: Massive natural language processing library
+				\item \textbf{cv/cv2}: Python wrappers for the fast and powerful OpenCV computer vision library
+				\item \textbf{matplotlib}: Easy to use plotting library
+				\item \textbf{pickle}: Object serializing
+			\end{itemize}			 
+		\end{frame}
+		
+		\begin{frame}[fragile]{Other Features (Python Buzzwords)}
+			\begin{itemize}
+				\item \textbf{Virtualenv}:
+				\begin{itemize}
+					\item[] Encapsulate python projects and their dependencies
+				
+				\end{itemize}
+				\item \textbf{MicroPython}: Python for micro controllers 
+				\item \textbf{Namespaces}: Built-in way to encapsulate your modules
+				\item \textbf{Cython and PyPy}: Python speed boosts
+				\item \textbf{CPython, Jython, IronPython, RPython, pyjs}: 
+				\begin{itemize}
+					\item[] Multi-language support (C, Java, .NET, R, JavaScript, ...)
+				\end{itemize}
+				\item \textbf{Brython}: Python in the browser
+				\item \textbf{Django, Flask, Bottle}: Python on the server
+			\end{itemize}
+		\end{frame}
+		
+		\begin{frame}{
+			The Zen of Python, by Tim Peters: import this}
+    			\fontsize{10pt}{10pt}\selectfont
+			
+			\begin{minipage}{0.45\linewidth}
+			Beautiful is better than ugly.\\
+			Explicit is better than implicit.\\
+			Simple is better than complex.\\
+			Complex is better than complicated.\\
+			Flat is better than nested.\\
+			Sparse is better than dense.\\
+			Readability counts.\\
+			Special cases aren't special enough to break the rules.\\
+			Although practicality beats purity.\\
+			Errors should never pass silently.\\
+			Unless explicitly silenced.\\
+			In the face of ambiguity, refuse the temptation to guess.\\
+			\end{minipage}
+			\hspace{0.5cm}
+			\begin{minipage}{0.45\linewidth}
+			There should be one-- and preferably only one --obvious way to do it.\\
+			Although that way may not be obvious at first unless you're Dutch.\\
+			Now is better than never.\\
+			Although never is often better than *right* now.\\
+			If the implementation is hard to explain, it's a bad idea.\\
+			If the implementation is easy to explain, it may be a good idea.\\
+			Namespaces are one honking great idea -- let's do more of those!\\
+			\end{minipage}
+		\end{frame}
+		
+\end{document}
