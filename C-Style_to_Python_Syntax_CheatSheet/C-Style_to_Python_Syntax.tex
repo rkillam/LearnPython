@@ -1,0 +1,421 @@
+\documentclass{article}
+
+\usepackage{color}
+\usepackage[margin=0.5in]{geometry}
+\usepackage{listings}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{
+  language=Python,
+  basicstyle={\small\ttfamily},
+  breakatwhitespace=true,
+  breaklines=true,
+  columns=flexible,
+  commentstyle=\color{dkgreen},
+  escapeinside={(*@}{@*)},
+  morekeywords={as, None, with, yield, True, False},
+  keywordstyle=\color{blue},
+  numbers=left,
+  showstringspaces=false,
+  stringstyle=\color{mauve},
+  tabsize=2,
+  emph={self},
+  emphstyle=\color{red}
+}
+
+\begin{document}
+
+\section{I/O}
+\begin{minipage}{0.45\linewidth}
+    Java:
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+    Python:
+\end{minipage}
+
+\begin{minipage}{0.45\linewidth}
+    \begin{lstlisting}[language=Java]
+System.out.println("Hello world");
+System.out.println("Earth is #" + 1);
+int num = sc.nextInt();  // Assuming that you've done the appropriate overhead
+    \end{lstlisting}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+    \begin{lstlisting}[language=Python]
+print("Hello World")
+print("Earth is #{}".format(1))  # Similar to printf
+num = int(input('Enter a number: '))  # There is no overhead
+    \end{lstlisting}
+\end{minipage}
+
+\section{if, else, and elif}
+\begin{minipage}{0.45\linewidth}
+    Java:
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+    Python:
+\end{minipage}
+
+\begin{minipage}{0.45\linewidth}
+    \begin{lstlisting}[language=Java]
+if(CONDITIONAL) {
+    Stuff...
+}
+else if(CONDITIONAL) {
+    Stuff...
+}
+else {
+    Stuff...
+}
+    \end{lstlisting}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+    \begin{lstlisting}
+if CONDITIONAL:
+    Stuff...
+elif CONDITIONAL:
+    Stuff...
+else:
+    Stuff...
+    \end{lstlisting}
+\end{minipage}
+
+\section{Loops}
+\subsection{while}
+\begin{minipage}{0.45\linewidth}
+    Java:
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+    Python:
+\end{minipage}
+
+\begin{minipage}{0.45\linewidth}
+    \begin{lstlisting}[language=Java]
+while(CONDITIONAL) {
+    Stuff on repeat...
+}
+    \end{lstlisting}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+    \begin{lstlisting}
+while CONDITIONAL:
+    Stuff on repeat...
+    \end{lstlisting}
+\end{minipage}
+
+\subsection{C-Style for}
+\begin{minipage}{0.45\linewidth}
+    Java:
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+    Python:
+\end{minipage}
+
+\begin{minipage}{0.45\linewidth}
+    \begin{lstlisting}[language=Java]
+for(int i = 0; i < n; ++i) {
+    Stuff on repeat n times...
+}
+
+for(int i = 0; i < a.length; ++i) {
+    Use a[i]...
+}
+    \end{lstlisting}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+    \begin{lstlisting}
+for i in range(n):
+    Stuff on repeat n times...
+
+for i in range(len(a)):
+    Use a[i]...
+    \end{lstlisting}
+\end{minipage}
+
+\subsection{Python Style}
+\begin{lstlisting}
+for ai in a:
+    Stuff using ai (*@$\equiv$@*) a[i]...
+
+OR
+
+for i, ai in enumerate(a):
+    Stuff using ai (*@$\equiv$@*) a[i]...
+\end{lstlisting}
+
+\section{Booleans}
+\begin{minipage}{0.45\linewidth}
+    Java:
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+    Python:
+\end{minipage}
+
+\begin{minipage}{0.45\linewidth}
+    \begin{lstlisting}[language=Java]
+true
+false
+    \end{lstlisting}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+    \begin{lstlisting}
+True
+False
+    \end{lstlisting}
+\end{minipage}
+
+\begin{minipage}{0.45\linewidth}
+    Java:
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+    Python:
+\end{minipage}
+
+\begin{minipage}{0.45\linewidth}
+    \begin{lstlisting}[language=Java]
+if(x > 1) {...
+if(x >= 1) {...
+if(x == 1) {...
+if(x != 1) {...
+if(!b) {...
+if(b1 && (b2 || !b3)) {...
+if(1 < x && x < 10) {...
+if(x == y && y == z) {...
+    \end{lstlisting}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+    \begin{lstlisting}
+if x > 1:...
+if x >= 1:...
+if x == 1:...
+if x != 1:...
+if not b:...
+if b1 and (b2 or not b3):...
+if 1 < x < 10:...
+if x == y == z:...
+    \end{lstlisting}
+\end{minipage}
+
+\section{Arithmetic}
+\begin{minipage}{0.45\linewidth}
+    Java:
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+    Python:
+\end{minipage}
+
+\begin{minipage}{0.45\linewidth}
+    \begin{lstlisting}[language=Java]
+x = 5;
+x = x + 1;  // x == 6
+x += 1;  // x == 6
+x++;  // or ++x;  x == 6
+x /= 2;  // x == 2
+N/A  // Java does not support
+N/A  // Java does not support
+N/A  // Java does not support
+x %= 2;  // x == 1
+    \end{lstlisting}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+    \begin{lstlisting}
+x = 5
+x = x + 1  # x == 6
+x += 1  # x == 6
+N/A  # Python does not support
+x /= 2  # x == 2.5
+x //= 2  # x == 2 (Integer division)
+x = 5 ** 2  # 25 (5 * 5)
+x **= 2  # x == 25 (x * x)
+x %= 2  # x == 1
+    \end{lstlisting}
+\end{minipage}
+
+\section{Methods / Functions}
+\begin{minipage}{0.45\linewidth}
+    Java:
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+    Python:
+\end{minipage}
+
+\begin{minipage}{0.45\linewidth}
+    \begin{lstlisting}[language=Java]
+ACCESS_MODIFIER RETURN_TYPE FUNCTION_NAME(PARAMETERS) {...
+
+public int add(int x, int y) {
+    return x + y;
+}
+    \end{lstlisting}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+    \begin{lstlisting}
+def FUNCTION_NAME(PARAMETERS):...
+
+def add(x, y):
+    return x + y
+    \end{lstlisting}
+\end{minipage}
+
+\subsection{Overloading}
+\begin{minipage}{0.45\linewidth}
+    Java:
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+    Python:
+\end{minipage}
+
+\begin{minipage}{0.45\linewidth}
+    \begin{lstlisting}[language=Java]
+public int add(int x) {
+    return add(x, 5);
+}
+
+public int add(int x, int y) {
+    return x + y;
+}
+
+...
+
+add(3);  // returns 8
+add(3, 4);  // returns 7
+    \end{lstlisting}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+    \begin{lstlisting}
+def add(x, y=5):
+    return x + y
+
+...
+
+add(3)  # returns 8
+add(3, 4)  # returns 7
+    \end{lstlisting}
+\end{minipage}
+
+\section{Classes}
+\subsection{Class Declaration}
+\begin{minipage}{0.45\linewidth}
+    Java:
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+    Python:
+\end{minipage}
+
+\begin{minipage}{0.45\linewidth}
+    \begin{lstlisting}[language=Java]
+ACCESS_MODIFIER class CLASS_NAME extends PARENT_CLASS implements INTERFACES {...
+
+public class MyClass extends ParentClass implements TheirInterface {...
+
+public class MyClass {...  // Implicitely extends Object class
+    \end{lstlisting}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+    \begin{lstlisting}
+class CLASS_NAME(PARENT_CLASS1, PARENT_CLASS2, etc):...
+
+class MyClass(ParentClass):
+
+class MyClass(object):  # Explicitely extends object class
+    \end{lstlisting}
+\end{minipage}
+
+\subsection{Constructor and Methods}
+\begin{minipage}{0.45\linewidth}
+    Java:
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+    Python:
+\end{minipage}
+
+\begin{minipage}{0.45\linewidth}
+    \begin{lstlisting}[language=Java]
+public MyClass(int xIn, double yIn, boolean zIn) {
+    // Assuming that MyClass extends a class that has a constructor with int x
+    // Assuming that MyClass declared instance variables:
+    //      double y;
+    //      boolean z;
+    super(xIn);
+
+    y = yIn;  // (*@$\equiv$@*) this.y = yIn;
+    z = zIn;  // (*@$\equiv$@*) this.z = zIn;
+}
+
+public get2y() {
+    return y * 2;  // (*@$\equiv$@*) return this.y * 2;
+}
+     \end{lstlisting}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+    \begin{lstlisting}
+def __init__(self, x_in, y_in, z_in):
+    # Assuming that MyClass extends a class that has a constructor with int x
+    super().__init__(x_in)
+
+    self.y = y_in  # (*@$\not\equiv$@*) y = y_in;
+    self.z = z_in  # (*@$\not\equiv$@*) z = z_in;
+
+def get2y(self):
+    return self.y * 2  # (*@$\not\equiv$@*) return y * 2
+    \end{lstlisting}
+\end{minipage}
+
+\subsection{Initialization and Method Calling}
+\begin{minipage}{0.45\linewidth}
+    Java:
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+    Python:
+\end{minipage}
+
+\begin{minipage}{0.45\linewidth}
+    \begin{lstlisting}[language=Java]
+MyClass mc = new MyClass(2, 3.5, true);
+System.out.println(mc.get2y());
+     \end{lstlisting}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+    \begin{lstlisting}
+mc = MyClass(2, 3.5, True)
+print(mc.get2y())  # Note that while self is an parameter I don't actually have to pass it
+    \end{lstlisting}
+\end{minipage}
+
+\newpage
+
+\section{Example Factorial Program}
+\subsection{Java}
+\lstinputlisting[language=Java]{Factorial.java}
+
+\subsection{Python}
+\lstinputlisting[language=Python]{factorial.py}
+
+\end{document}
