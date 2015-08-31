@@ -1,14 +1,7 @@
-class FactorialCalculator(object):
-    def calc(self, n):
-        result = 1
-        while n > 0:
-            result *= n
-            n -= 1
-
-        return result
+import factorial_calculator
 
 
-factCalc = FactorialCalculator()
+factCalc = factorial_calculator.FactorialCalculator()
 
 for i in range(1, 11):
     fact = factCalc.calc(i)

@@ -46,7 +46,7 @@ int num = sc.nextInt();  // Assuming that you've done the appropriate overhead
 \end{minipage}
 \hfill
 \begin{minipage}{0.45\linewidth}
-    \begin{lstlisting}[language=Python]
+    \begin{lstlisting}
 print("Hello World")
 print("Earth is #{}".format(1))  # Similar to printf
 num = int(input('Enter a number: '))  # There is no overhead
@@ -276,7 +276,7 @@ def add(x, y):
     \end{lstlisting}
 \end{minipage}
 
-\subsection{Overloading}
+\subsection{Overloading / Keyword Arguments}
 \begin{minipage}{0.45\linewidth}
     Java:
 \end{minipage}
@@ -287,30 +287,34 @@ def add(x, y):
 
 \begin{minipage}{0.45\linewidth}
     \begin{lstlisting}[language=Java]
-public int add(int x) {
-    return add(x, 5);
+public double calc(double x) {
+    return calc(x, 5, 5);
 }
 
-public int add(int x, int y) {
-    return x + y;
+public double calc(double x, double y, double z) {
+    return x + (y / z);
 }
 
 ...
 
-add(3);  // returns 8
-add(3, 4);  // returns 7
+calc(3);  // returns 4
+calc(3, 4, 2);  // returns 5
     \end{lstlisting}
 \end{minipage}
 \hfill
 \begin{minipage}{0.45\linewidth}
     \begin{lstlisting}
-def add(x, y=5):
-    return x + y
+def calc(x, y=5, z=5):
+    return x + (y / z)
 
 ...
 
-add(3)  # returns 8
-add(3, 4)  # returns 7
+calc(3)  # returns 4
+calc(3, 4)  # returns 3.8
+calc(3, 4, 2)  # returns 5
+calc(3, z=4)  # returns 4.25
+calc(3, y=8, z=4)  # returns 5
+calc(3, z=4, y=8)  # returns 5
     \end{lstlisting}
 \end{minipage}
 
@@ -409,13 +413,89 @@ print(mc.get2y())  # Note that while self is an parameter I don't actually have 
     \end{lstlisting}
 \end{minipage}
 
+\section{Include / Import}
+\begin{minipage}{0.45\linewidth}
+    Java:
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+    Python:
+\end{minipage}
+
+\begin{minipage}{0.45\linewidth}
+    \begin{lstlisting}[language=Java]
+// Not needed if file is in the same directory
+
+// Reference things in the package as thing
+include path.to.folder.package;
+    \end{lstlisting}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+    \begin{lstlisting}
+# Needed always
+
+# Reference thing as path.to.folder.module.thing
+import path.to.folder.module
+
+# Reference things in module as md.thing
+import path.to.folder.module as md
+
+# Reference thing as thing
+from path.to.folder.module import thing
+
+# If it is in the same directory
+import module
+    \end{lstlisting}
+\end{minipage}
+
+\subsection{Examples}
+\begin{minipage}{0.45\linewidth}
+    Java:
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+    Python:
+\end{minipage}
+
+\begin{minipage}{0.45\linewidth}
+    \begin{lstlisting}[language=Java]
+include java.util.Scanner;
+
+Scanner sc = new Scanner(System.in);
+    \end{lstlisting}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+    \begin{lstlisting}
+# Don't worry about what this does, it's an
+# example of how to import
+
+# This is the only style of import that I will use
+import scipy.sparse
+matrix = scipy.sparse.csr_matrix(range(10))
+
+import scipy.sparse as sp_sparse
+matrix = sp_sparse.csr_matrix(range(10))
+
+from scipy.sparse from csr_matrix
+matrix = csr_matrix(range(10))
+    \end{lstlisting}
+\end{minipage}
+
 \newpage
 
 \section{Example Factorial Program}
 \subsection{Java}
+FactorialCalculartor.java
+\lstinputlisting[language=Java]{FactorialCalculator.java}
+Factorial.java
 \lstinputlisting[language=Java]{Factorial.java}
 
 \subsection{Python}
+factorial\_calculator.py
+\lstinputlisting[language=Python]{factorial_calculator.py}
+factorial.py
 \lstinputlisting[language=Python]{factorial.py}
 
 \end{document}
