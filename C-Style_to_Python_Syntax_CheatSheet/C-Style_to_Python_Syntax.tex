@@ -166,7 +166,7 @@ for i in range(len(a)):
     \end{lstlisting}
 \end{minipage}
 
-\subsection{Python Style}
+\subsection{Python Style for}
 \begin{lstlisting}
 for ai in a:
     Stuff using ai (*@$\equiv$@*) a[i]...
@@ -252,7 +252,6 @@ x++;  // or ++x;  x == 6
 x /= 2;  // x == 2
 N/A  // Java does not support
 N/A  // Java does not support
-N/A  // Java does not support
 x %= 2;  // x == 1
     \end{lstlisting}
 \end{minipage}
@@ -263,9 +262,8 @@ x = 5
 x = x + 1  # x == 6
 x += 1  # x == 6
 N/A  # Python does not support
-x /= 2  # x == 2.5
-x //= 2  # x == 2 (Integer division)
-x = 5 ** 2  # 25 (5 * 5)
+x /= 2  # x == 2
+x = 5 ** 2  # x == 25 (5 * 5)
 x **= 2  # x == 25 (x * x)
 x %= 2  # x == 1
     \end{lstlisting}
@@ -341,6 +339,7 @@ calc(3, z=4, y=8)  # returns 5
     \end{lstlisting}
 \end{minipage}
 
+\newpage
 \section{Classes}
 \subsection{Class Declaration}
 \begin{minipage}{0.45\linewidth}
@@ -432,7 +431,7 @@ System.out.println(mc.get2y());
 \begin{minipage}{0.45\linewidth}
     \begin{lstlisting}
 mc = MyClass(2, 3.5, True)
-print(mc.get2y())  # Note that while self is an parameter I don't actually have to pass it
+print(mc.get2y())  # Note that while self is a parameter I don't actually have to pass it
     \end{lstlisting}
 \end{minipage}
 
@@ -456,7 +455,7 @@ include path.to.folder.package;
 \hfill
 \begin{minipage}{0.45\linewidth}
     \begin{lstlisting}
-# Needed always
+# Always needed when using functions, classes, variables, etc from different files
 
 # Reference thing as path.to.folder.module.thing
 import path.to.folder.module

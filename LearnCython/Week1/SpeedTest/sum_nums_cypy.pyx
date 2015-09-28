@@ -1,7 +1,3 @@
-#!/usr/bin/python3
-# -*- coding: utf-8 -*-
-
-
 cpdef unsigned long long sum_nums(long n):
     cdef unsigned long long s = 0
     cdef long i

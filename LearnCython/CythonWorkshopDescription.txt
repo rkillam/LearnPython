@@ -1,0 +1,9 @@
+Cython combines the best of both Python and C. Use Python syntax and libraries
+to easily solve a problem, then add simple C-like syntax in order to get up to
+200 times faster code. (Knowledge of C/C++ not required)
+
+Course Outline:
+    Python syntax
+    How to compile and use Cython code
+    Cython syntax
+    When to use Cython
