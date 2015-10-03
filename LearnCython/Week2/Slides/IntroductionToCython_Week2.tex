@@ -1,0 +1,445 @@
+\documentclass[11pt]{beamer}
+\usetheme{Copenhagen}
+\usecolortheme{dolphin}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{datetime}
+\usepackage{fancyhdr}
+\usepackage{gensymb}
+\usepackage{graphicx}
+\usepackage{lastpage}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{pgfpages}
+\usepackage{setspace}
+\usepackage{tikz}
+
+% Code snippets
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{
+  basicstyle={\small\ttfamily},
+  breakatwhitespace=true,
+  breaklines=true,
+  columns=flexible,
+  commentstyle=\color{dkgreen},
+  escapeinside={(*@}{@*)},
+  keywordstyle=\color{blue},
+  numbers=left,
+  numberstyle=\color{gray},
+  showstringspaces=false,
+  stringstyle=\color{mauve},
+  tabsize=2,
+  language=Python,
+  morekeywords={as, None, with, yield, True, False},
+  emph={self},
+  emphstyle=\color{red}
+}
+
+\newcommand{\code}[1]{
+\begin{lstlisting}
+#1
+\end{lstlisting}}
+
+\newcommand{\emptyline}{$ $\\}
+
+\author{Richard Killam}
+\title{Introduction to Cython - Week 2}
+
+%\setbeamercovered{transparent} 
+
+\setbeamertemplate{navigation symbols}{}
+%\setbeamertemplate{note page}[plain]
+%\setbeameroption{show notes on second screen=right}
+
+\addtobeamertemplate{frametitle}{}{
+\begin{tikzpicture}[remember picture,overlay]
+\node[anchor=north east,yshift=0pt] at (current page.north east) {\includegraphics[height=0.8cm]{Cython-logo.png}};
+\end{tikzpicture}}
+
+%\date{} 
+%\institute{} 
+%\logo{} 
+%\subject{} 
+
+\begin{document}
+\centering
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+	\begin{multicols}{2}
+		\tableofcontents
+	\end{multicols}
+\end{frame}
+
+\section{I/O}
+\begin{frame}[fragile]{Hello World}
+	\begin{minipage}{0.45\linewidth}
+		hello\_world.pyx
+		\begin{lstlisting}
+			print("Hello World")
+		\end{lstlisting}
+	\end{minipage}
+	\pause
+	\begin{minipage}{0.45\linewidth}
+		python hello\_world.py
+		\emptyline
+		$>>$ Hello World
+	\end{minipage}
+\end{frame}
+
+\begin{frame}[fragile]{My name is...}
+	\raggedright
+	my\_name\_is.py
+	\begin{lstlisting}
+		name = raw_input("Name > ")
+		print("Hello World, my name is {NAME}".format(NAME=name))
+	\end{lstlisting}
+
+	\pause
+	
+	python my\_name\_is.py
+	
+	$>>$ Name $>$ 
+	
+	$>>$ Name $>$ Richard
+	
+	$>>$ Hello World, my name is Richard
+	
+\end{frame}
+
+\subsection{Exercise}
+\begin{frame}[fragile]{Exercise - My full name is...}
+	\pause
+	my\_full\_name\_is.py
+	\begin{lstlisting}
+		first_name = raw_input("First name > ")
+		last_name = raw_input("Last name > ")
+		
+		print("Hello World, my name is {FIRST} {LAST}".format(
+		    FIRST=first_name, 
+		    LAST=last_name
+		))
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Getting numbers in}
+	name\_and\_age.py
+	\begin{lstlisting}
+		name = raw_input("Name > ")
+		year_of_birth = int(raw_input("Year of Birth > "))
+		
+		print("{NAME} is {YEARS} old.".format(
+		    NAME=name,
+		    YEARS=2015 - year_of_birth		
+		))
+	\end{lstlisting}
+\end{frame}
+
+\section{Conditionals}
+\subsection{if, else, and elif}
+\begin{frame}[fragile]{if, else}
+	True\_False.py
+	\begin{lstlisting}
+		if True:
+		    print("The conditional was True")
+		
+		else:
+		    print("The conditional was False")
+	\end{lstlisting}
+	\emptyline
+	\emptyline
+	\pause
+	Note the indentation.
+\end{frame}
+
+\begin{frame}[fragile]{if, else with input}
+	even\_or\_odd.py
+	\begin{lstlisting}
+		num = int(raw_input("Number > "))
+		
+		if num % 2 == 0:
+		    print("{NUM} is even".format(NUM=num))
+		
+		else:
+		    print("{NUM} is odd".format(NUM=num))
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{elif}
+	a\_or\_b.py
+	\begin{lstlisting}
+		choice = raw_input("Choose a or b ")
+		
+		if choice == "a":
+		    print("You chose a")
+
+		elif choice == "b":
+		    print("You chose b")
+		
+		else:
+		    print("You did not follow instructions...")
+	\end{lstlisting}
+\end{frame}
+
+\subsection{While}
+\begin{frame}[fragile]{While + and}
+	force\_a\_or\_b.py
+	\begin{lstlisting}
+		choice = ""
+		
+		while choice != "a" and choice != "b":
+			choice = raw_input("Choose a or b >")
+		
+		if choice == "a":
+		    print("You chose a")
+		elif choice == "b":
+		    print("You chose b")
+		else:
+		    # Dead code
+		    print("How did you get here?!?!")
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{While + or + not}
+	force\_a\_or\_b.py
+	\begin{lstlisting}
+		choice = ""
+		
+		while not (choice == "a" or choice == "b"):
+			choice = raw_input("Choose a or b >")
+		
+		if choice == "a":
+		    print("You chose a")
+		elif choice == "b":
+		    print("You chose b")
+		else:
+		    # Dead code
+		    print("How did you get here?!?!")
+	\end{lstlisting}
+\end{frame}
+
+\section{Iteration}
+\subsection{Arrays}
+\begin{frame}[fragile]{Array declaration}
+	array\_declaration.py
+	\begin{lstlisting}
+		a = [1, 2, 3, 4, 5]
+		print(a)  # >> [1, 2, 3, 4, 5]
+		
+		a = range(1, 6)
+		print(a)  # >> [1, 2, 3, 4, 5]
+		
+		a = range(5)
+		print(a)  # >> [0, 1, 2, 3, 4]
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Array indexing}
+	array\_indexing.py
+	\begin{lstlisting}
+		a = range(5)
+		
+		print(a)  # >> [0, 1, 2, 3, 4]
+		print(a[0])  # >> 0
+		
+		print(a[len(a) - 1])  # >> 4
+		print(a[-1])  # >> 4
+		
+		print(a[len(a) - 2])  # >> 3
+		print(a[-2])  # >> 3
+	\end{lstlisting}
+\end{frame}
+
+\subsection{for loop}
+\begin{frame}[fragile]{C-Style for loop}
+	c\_style\_for\_loop.py
+	\begin{lstlisting}
+		a = range(5, 10)
+		
+		for i in range(len(a)):
+		    print("a[{I}] = {AI}".format(I=i, AI=a[i]))
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Python-Style for loop}
+	python\_style\_for\_loop.py
+	\begin{lstlisting}
+		a = range(5, 10)
+		
+		for ai in a:
+		    print("AI = {AI}".format(AI=a[i])) 
+		(*@\pause@*)
+		for i, ai in enumerate(a):
+		    print("a[{I}] = {AI}".format(I=i, AI=ai))
+	\end{lstlisting}
+\end{frame}
+
+\subsection{Exercise}
+\begin{frame}[fragile]{Exercise - Sum the Numbers from 1 to n}
+	sum\_nums.py	
+	\pause
+	\begin{lstlisting}
+		n = int(raw_input("n (-1 to quit) > "))
+		while n > 1:
+		    s = 0		 
+		    
+		    # n + 1 because range goes to n - 1   
+		    for i in range(1, n+1):
+		    	    s += i
+		    	
+		    	print("n = {N} -> {S}".format(N=n, S=s))
+		    
+		    n = int(raw_input("n (-1 to quit) > "))
+	\end{lstlisting}
+\end{frame}
+
+\section{Functions}
+\begin{frame}[fragile]{def}
+	sum\_nums\_func.py
+	\begin{lstlisting}
+		def sum_nums(n):
+		    s = 0
+		    
+		    # n + 1 because range goes to n - 1
+		    for i in range(1, n+1):
+		        s += i
+			
+		    return s
+		
+		print("sum_nums({N}) => {SNN}".format(
+		    N=10, 
+		    SNN=sum_nums(10)
+		))  # >> 55
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Default Arguments}
+	func\_default\_args.py
+	\begin{lstlisting}
+		def default_args(a=1, b=3):
+		    print("a was {A}; b was {B}".format(A=a, B=b))
+		
+		default_args()             # >> a was 1; b was 3
+		default_args(7)            # >> a was 7; b was 3
+		default_args(7, 11)        # >> a was 7; b was 11
+		default_args(7, b=12)      # >> a was 7; b was 12
+		default_args(a=8, b=12)    # >> a was 8; b was 12
+		default_args(b=13, a=5)    # >> a was 5; b was 13
+		default_args(a=10, 14)     # >> SyntaxError: non-keyword arg after keyword arg
+	\end{lstlisting}
+\end{frame}
+
+\subsection{Exercise}
+\begin{frame}[fragile]{Exercise - Sum the Numbers from low to high}
+	sum\_range.py
+	\pause
+	\begin{lstlisting}
+		def sum_range(low=1, high=10):
+		    s = 0
+		    
+		    # high + 1 because range goes to high - 1
+		    for i in range(low, high + 1):
+		        s += i
+			
+		    return s
+	\end{lstlisting}
+\end{frame}
+
+\section{Importing}
+\subsection{From Python Path}
+\begin{frame}[fragile]{Basics}
+	basic\_import\_from\_python\_path.py
+	\begin{lstlisting}
+		# imports that math library and references it as math
+		import math
+		print(math.log(100, 10))  # >> 2.0  (log 100 base 10)
+		
+		# sys.argv allows for command line arguments
+		import sys
+		print(sys.argv)
+	\end{lstlisting}
+\end{frame}
+		
+\begin{frame}[fragile]{Different styles of importing}
+	\begin{lstlisting}
+		# imports the sparse module from the scipy library as scipy.sparse
+		import scipy.sparse
+		
+		# imports the sparse module from the scipy library as sp_sparse
+		import scipy.sparse as sp_sparse
+		
+		# imports the sparse module from the scipy library as sparse
+		from scipy import sparse
+	\end{lstlisting}
+\end{frame}
+
+\subsection{From Current Folder}
+\begin{frame}[fragile]{From sum\_range.py}
+	import\_sum\_range.py
+	\begin{lstlisting}
+		# This is the only style that I will use in the workshop
+		import sum_range  # Note that there is no .py
+		print(sum_range.sum_range(low=2, high=10))  # >> 54
+		
+		import sum_range as sr
+		print(sr.sum_range(low=2, high=10))  # >> 54
+		
+		from sum_range import sum_range
+		print(sum_range(low=2, high=10))  # >> 54
+		
+		from sum_range import sum_range as sr
+		print(sr(low=2, high=10))  # >> 54
+	\end{lstlisting}
+\end{frame}
+
+\section{Classes}
+\begin{frame}[fragile]{Definition, Instantiation, and Usage}
+	animal.py
+	\begin{lstlisting}
+		# Explicit inheritance from object class
+		class Animal(object):
+		    # Explicit (and necessary) passing of self object
+		    def __init__(self, name_in, noise_in):
+		        self.name = name_in  # (*@ $\not\equiv$ @*) name = name_in
+		        self.noise = noise_in  # (*@ $\not\equiv$ @*) noise = noise_in
+		
+		dog = Animal("Rex", "woof")
+		print("{DOG} makes a {NOISE} noise".format(
+		    DOG=dog.name,
+		    NOISE=dog.noise
+		))
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Inheritance}
+	animal.py
+	\begin{lstlisting}
+		class Dog(Animal):
+		    def __init__(self, name):
+		        # This gets better in Python 3
+		        super(Dog, self).__init__(name, "woof")
+		    
+		    # NEED to accept self
+		    def wag_tail(self):
+		    	    print("{NAME} is happy".format(NAME=self.name))
+		 
+		 rex = Dog("Rex")
+		 rex.wag_tail()  # DON'T need to explicitly pass self
+	\end{lstlisting}
+\end{frame}
+
+\end{document}
