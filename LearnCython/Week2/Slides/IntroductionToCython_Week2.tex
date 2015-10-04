@@ -85,54 +85,73 @@
 	\end{multicols}
 \end{frame}
 
-\section{I/O}
-\begin{frame}[fragile]{Hello World}
-	\begin{minipage}{0.45\linewidth}
-		hello\_world.pyx
-		\begin{lstlisting}
-			print("Hello World")
-		\end{lstlisting}
-	\end{minipage}
+\section{Using Cython Files}
+\begin{frame}[fragile]{}
+	There are 3 ways to use Cython files:
+	\begin{enumerate}
+		\item \textbf{Direct Import:} import the code without \underline{explicitly} compiling
+		\item \textbf{Compiled Import:} explicitly compile the code, then import
+		\item \textbf{Compile Executable:} explicitly compile the code and then run it directly
+	\end{enumerate}
 	\pause
-	\begin{minipage}{0.45\linewidth}
-		python hello\_world.py
-		\emptyline
-		$>>$ Hello World
-	\end{minipage}
+	hello.pyx
+	\lstinputlisting{../Examples/CythonHelloWorld/DirectImport/hello.pyx}
 \end{frame}
 
-\begin{frame}[fragile]{My name is...}
-	\raggedright
-	my\_name\_is.py
-	\begin{lstlisting}
-		name = raw_input("Name > ")
-		print("Hello World, my name is {NAME}".format(NAME=name))
+\begin{frame}[fragile]{Direct Import}
+	\begin{lstlisting}[language=Bash]
+		cd Examples/CythonHelloWorld/DirectImport
+		ls
+		python run_hello.py
 	\end{lstlisting}
-
-	\pause
 	
-	python my\_name\_is.py
-	
-	$>>$ Name $>$ 
-	
-	$>>$ Name $>$ Richard
-	
-	$>>$ Hello World, my name is Richard
-	
+	run\_hello.py
+	\lstinputlisting{../Examples/CythonHelloWorld/DirectImport/run_hello.py}
 \end{frame}
 
-\subsection{Exercise}
-\begin{frame}[fragile]{Exercise - My full name is...}
-	\pause
-	my\_full\_name\_is.py
-	\begin{lstlisting}
-		first_name = raw_input("First name > ")
-		last_name = raw_input("Last name > ")
-		
-		print("Hello World, my name is {FIRST} {LAST}".format(
-		    FIRST=first_name, 
-		    LAST=last_name
-		))
+\begin{frame}[fragile]{Compiled Import}
+	\begin{lstlisting}[language=Bash]
+		cd Examples/CythonHelloWorld/CompiledImport
+		ls
+	\end{lstlisting}
+	
+	\begin{description}
+		\item[setup.py] Helper script compiles the given .pyx files into C libraries (.so files)
+		\lstinputlisting{../Examples/CythonHelloWorld/CompiledImport/setup.py}
+	\end{description}
+\end{frame}
+
+\begin{frame}[fragile]{Compiled Import cont.}
+	\begin{lstlisting}[language=Bash]
+		python run_hello.py (*@\pause@*) # ImportError
+		python setup.py build_ext --inplace
+		ls  # Note hello.so
+		python run_hello.py
+	\end{lstlisting}
+	
+	run\_hello.py
+	\lstinputlisting{../Examples/CythonHelloWorld/CompiledImport/run_hello.py}
+\end{frame}
+
+\begin{frame}[fragile]{Compiled Executable}
+	\begin{lstlisting}[language=Bash]
+		cd Examples/CythonHelloWorld/CompiledExecutable
+		ls	
+	\end{lstlisting}
+	
+	\begin{flushleft}
+		\textbf{cython\_build.sh} Script I wrote to streamline the compilation process. 
+		\begin{enumerate}
+			\item Uses the Cython compiler to compile hello.pyx into hello.c
+			\item Uses gcc to hello.c into executable
+		\end{enumerate}
+	\end{flushleft}
+\end{frame}
+
+\begin{frame}[fragile]{Compiled Executable cont}
+	\begin{lstlisting}[language=Bash]
+		bash cython_build.sh hello.pyx
+		./hello
 	\end{lstlisting}
 \end{frame}
 
