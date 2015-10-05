@@ -28,7 +28,7 @@ for cython_file in ${@}; do
     c_file=${cython_file_basename}.c
 
     echo "Compiling ${cython_file} into ${c_file}"
-    ${CYTHON} --embed ${cython_file} -o ${c_file}
+    ${CYTHON} -a --embed ${cython_file} -o ${c_file}
 
     echo "Compiling ${c_file} into ${cython_file_basename}"
     ${GCC} -I${INCLUDES} ${c_file} -o ${cython_file_basename} -lpython3.4m

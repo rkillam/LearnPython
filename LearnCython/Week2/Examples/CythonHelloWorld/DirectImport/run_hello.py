@@ -1,3 +1,4 @@
+# pyximport lets you import cython (.pyx) files without compiling them first
 import pyximport
 pyximport.install()
 

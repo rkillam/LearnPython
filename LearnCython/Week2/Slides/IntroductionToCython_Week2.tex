@@ -42,7 +42,7 @@
   tabsize=2,
   language=Python,
   morekeywords={as, None, with, yield, True, False},
-  emph={self},
+  emph={self, cdef, cpdef},
   emphstyle=\color{red}
 }
 
@@ -86,14 +86,15 @@
 \end{frame}
 
 \section{Using Cython Files}
-\begin{frame}[fragile]{}
+\begin{frame}[fragile]{Method Overview}
 	There are 3 ways to use Cython files:
-	\begin{enumerate}
+	\begin{enumerate}[<+->]
 		\item \textbf{Direct Import:} import the code without \underline{explicitly} compiling
 		\item \textbf{Compiled Import:} explicitly compile the code, then import
-		\item \textbf{Compile Executable:} explicitly compile the code and then run it directly
+		\item \textbf{Compiled Executable:} explicitly compile the code and then run it directly
 	\end{enumerate}
-	\pause
+	
+	\pause[\thebeamerpauses]
 	hello.pyx
 	\lstinputlisting{../Examples/CythonHelloWorld/DirectImport/hello.pyx}
 \end{frame}
@@ -104,7 +105,7 @@
 		ls
 		python run_hello.py
 	\end{lstlisting}
-	
+	\pause
 	run\_hello.py
 	\lstinputlisting{../Examples/CythonHelloWorld/DirectImport/run_hello.py}
 \end{frame}
@@ -123,7 +124,7 @@
 
 \begin{frame}[fragile]{Compiled Import cont.}
 	\begin{lstlisting}[language=Bash]
-		python run_hello.py (*@\pause@*) # ImportError
+		python run_hello.py (*@\pause@*) # ImportError (*@\pause@*)
 		python setup.py build_ext --inplace
 		ls  # Note hello.so
 		python run_hello.py
@@ -131,6 +132,9 @@
 	
 	run\_hello.py
 	\lstinputlisting{../Examples/CythonHelloWorld/CompiledImport/run_hello.py}
+
+	\pause
+	Notice the speed difference between Direct and Compiled Importing.
 \end{frame}
 
 \begin{frame}[fragile]{Compiled Executable}
@@ -143,7 +147,7 @@
 		\textbf{cython\_build.sh} Script I wrote to streamline the compilation process. 
 		\begin{enumerate}
 			\item Uses the Cython compiler to compile hello.pyx into hello.c
-			\item Uses gcc to hello.c into executable
+			\item Uses gcc to compile hello.c into an executable
 		\end{enumerate}
 	\end{flushleft}
 \end{frame}
@@ -153,311 +157,156 @@
 		bash cython_build.sh hello.pyx
 		./hello
 	\end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]{Getting numbers in}
-	name\_and\_age.py
-	\begin{lstlisting}
-		name = raw_input("Name > ")
-		year_of_birth = int(raw_input("Year of Birth > "))
-		
-		print("{NAME} is {YEARS} old.".format(
-		    NAME=name,
-		    YEARS=2015 - year_of_birth		
-		))
-	\end{lstlisting}
-\end{frame}
-
-\section{Conditionals}
-\subsection{if, else, and elif}
-\begin{frame}[fragile]{if, else}
-	True\_False.py
-	\begin{lstlisting}
-		if True:
-		    print("The conditional was True")
-		
-		else:
-		    print("The conditional was False")
-	\end{lstlisting}
-	\emptyline
-	\emptyline
+	
 	\pause
-	Note the indentation.
-\end{frame}
-
-\begin{frame}[fragile]{if, else with input}
-	even\_or\_odd.py
-	\begin{lstlisting}
-		num = int(raw_input("Number > "))
-		
-		if num % 2 == 0:
-		    print("{NUM} is even".format(NUM=num))
-		
-		else:
-		    print("{NUM} is odd".format(NUM=num))
+	Open hello.c
+	\pause
+	\begin{lstlisting}[language=Bash]
+		wc -l hello.c  # 1,626 lines!!!
 	\end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{elif}
-	a\_or\_b.py
-	\begin{lstlisting}
-		choice = raw_input("Choose a or b ")
+\begin{frame}[fragile]{Method Summary}
+	\begin{itemize}[<+->]
+		\item \textbf{Direct Import} 
+		\begin{itemize}[<.->]
+			\item Slow start-up on each run
+			\item Simple
+			\item Good for development
+		\end{itemize}
 		
-		if choice == "a":
-		    print("You chose a")
-
-		elif choice == "b":
-		    print("You chose b")
+		\item \textbf{Compiled Import}
+		\begin{itemize}[<.->]
+			\item Fast on each run
+			\item Added step in execution process
+			\item Used for production / release
+		\end{itemize}
 		
-		else:
-		    print("You did not follow instructions...")
-	\end{lstlisting}
-\end{frame}
-
-\subsection{While}
-\begin{frame}[fragile]{While + and}
-	force\_a\_or\_b.py
-	\begin{lstlisting}
-		choice = ""
-		
-		while choice != "a" and choice != "b":
-			choice = raw_input("Choose a or b >")
-		
-		if choice == "a":
-		    print("You chose a")
-		elif choice == "b":
-		    print("You chose b")
-		else:
-		    # Dead code
-		    print("How did you get here?!?!")
-	\end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]{While + or + not}
-	force\_a\_or\_b.py
-	\begin{lstlisting}
-		choice = ""
-		
-		while not (choice == "a" or choice == "b"):
-			choice = raw_input("Choose a or b >")
-		
-		if choice == "a":
-		    print("You chose a")
-		elif choice == "b":
-		    print("You chose b")
-		else:
-		    # Dead code
-		    print("How did you get here?!?!")
-	\end{lstlisting}
-\end{frame}
-
-\section{Iteration}
-\subsection{Arrays}
-\begin{frame}[fragile]{Array declaration}
-	array\_declaration.py
-	\begin{lstlisting}
-		a = [1, 2, 3, 4, 5]
-		print(a)  # >> [1, 2, 3, 4, 5]
-		
-		a = range(1, 6)
-		print(a)  # >> [1, 2, 3, 4, 5]
-		
-		a = range(5)
-		print(a)  # >> [0, 1, 2, 3, 4]
-	\end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]{Array indexing}
-	array\_indexing.py
-	\begin{lstlisting}
-		a = range(5)
-		
-		print(a)  # >> [0, 1, 2, 3, 4]
-		print(a[0])  # >> 0
-		
-		print(a[len(a) - 1])  # >> 4
-		print(a[-1])  # >> 4
-		
-		print(a[len(a) - 2])  # >> 3
-		print(a[-2])  # >> 3
-	\end{lstlisting}
-\end{frame}
-
-\subsection{for loop}
-\begin{frame}[fragile]{C-Style for loop}
-	c\_style\_for\_loop.py
-	\begin{lstlisting}
-		a = range(5, 10)
-		
-		for i in range(len(a)):
-		    print("a[{I}] = {AI}".format(I=i, AI=a[i]))
-	\end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]{Python-Style for loop}
-	python\_style\_for\_loop.py
-	\begin{lstlisting}
-		a = range(5, 10)
-		
-		for ai in a:
-		    print("AI = {AI}".format(AI=a[i])) 
-		(*@\pause@*)
-		for i, ai in enumerate(a):
-		    print("a[{I}] = {AI}".format(I=i, AI=ai))
-	\end{lstlisting}
+		\item \textbf{Compiled Executable}
+		\begin{itemize}[<.->]
+			\item Complicated compilation process
+			\item Could be used to develop a module
+			\item Most used method for this workshop
+		\end{itemize}
+	\end{itemize}
 \end{frame}
 
 \subsection{Exercise}
-\begin{frame}[fragile]{Exercise - Sum the Numbers from 1 to n}
-	sum\_nums.py	
+\begin{frame}[fragile]{sum\_nums\_func.pyx}
+	sum\_nums\_func.pyx
 	\pause
-	\begin{lstlisting}
-		n = int(raw_input("n (-1 to quit) > "))
-		while n > 1:
-		    s = 0		 
-		    
-		    # n + 1 because range goes to n - 1   
-		    for i in range(1, n+1):
-		    	    s += i
-		    	
-		    	print("n = {N} -> {S}".format(N=n, S=s))
-		    
-		    n = int(raw_input("n (-1 to quit) > "))
-	\end{lstlisting}
-\end{frame}
-
-\section{Functions}
-\begin{frame}[fragile]{def}
-	sum\_nums\_func.py
 	\begin{lstlisting}
 		def sum_nums(n):
 		    s = 0
-		    
-		    # n + 1 because range goes to n - 1
-		    for i in range(1, n+1):
+		    for i in range(n+1):
 		        s += i
-			
 		    return s
 		
-		print("sum_nums({N}) => {SNN}".format(
-		    N=10, 
-		    SNN=sum_nums(10)
-		))  # >> 55
-	\end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]{Default Arguments}
-	func\_default\_args.py
-	\begin{lstlisting}
-		def default_args(a=1, b=3):
-		    print("a was {A}; b was {B}".format(A=a, B=b))
-		
-		default_args()             # >> a was 1; b was 3
-		default_args(7)            # >> a was 7; b was 3
-		default_args(7, 11)        # >> a was 7; b was 11
-		default_args(7, b=12)      # >> a was 7; b was 12
-		default_args(a=8, b=12)    # >> a was 8; b was 12
-		default_args(b=13, a=5)    # >> a was 5; b was 13
-		default_args(a=10, 14)     # >> SyntaxError: non-keyword arg after keyword arg
-	\end{lstlisting}
-\end{frame}
-
-\subsection{Exercise}
-\begin{frame}[fragile]{Exercise - Sum the Numbers from low to high}
-	sum\_range.py
-	\pause
-	\begin{lstlisting}
-		def sum_range(low=1, high=10):
-		    s = 0
-		    
-		    # high + 1 because range goes to high - 1
-		    for i in range(low, high + 1):
-		        s += i
-			
-		    return s
-	\end{lstlisting}
-\end{frame}
-
-\section{Importing}
-\subsection{From Python Path}
-\begin{frame}[fragile]{Basics}
-	basic\_import\_from\_python\_path.py
-	\begin{lstlisting}
-		# imports that math library and references it as math
-		import math
-		print(math.log(100, 10))  # >> 2.0  (log 100 base 10)
-		
-		# sys.argv allows for command line arguments
 		import sys
-		print(sys.argv)
+		n = int(sys.argv[1])
+		print(sum_nums(n))
 	\end{lstlisting}
-\end{frame}
-		
-\begin{frame}[fragile]{Different styles of importing}
-	\begin{lstlisting}
-		# imports the sparse module from the scipy library as scipy.sparse
-		import scipy.sparse
-		
-		# imports the sparse module from the scipy library as sp_sparse
-		import scipy.sparse as sp_sparse
-		
-		# imports the sparse module from the scipy library as sparse
-		from scipy import sparse
+	\pause
+	\begin{lstlisting}[language=Bash]
+		time python sum_nums_func.pyx 100000000  # (*@$\approx$@*) 14 seconds
+		cython_build.sh sum_nums_func.pyx
+		time ./sum_nums_func 100000000  # (*@$\approx$@*) 12 seconds
 	\end{lstlisting}
 \end{frame}
 
-\subsection{From Current Folder}
-\begin{frame}[fragile]{From sum\_range.py}
-	import\_sum\_range.py
+\section{Variable Declaration}
+\begin{frame}[fragile]{Static Type Declaration in Cython}
 	\begin{lstlisting}
-		# This is the only style that I will use in the workshop
-		import sum_range  # Note that there is no .py
-		print(sum_range.sum_range(low=2, high=10))  # >> 54
-		
-		import sum_range as sr
-		print(sr.sum_range(low=2, high=10))  # >> 54
-		
-		from sum_range import sum_range
-		print(sum_range(low=2, high=10))  # >> 54
-		
-		from sum_range import sum_range as sr
-		print(sr(low=2, high=10))  # >> 54
+		cdef char c
+		cdef unsigned char b
+		cdef int i
+		cdef long j
+		cdef unsigned int k
+		cdef unsigned long long l
+		cdef float f
+		cdef double d
+		cdef char* s (*@\pause@*)
+		cdef struct  (*@(Maybe talk about this later)@*)
 	\end{lstlisting}
 \end{frame}
 
-\section{Classes}
-\begin{frame}[fragile]{Definition, Instantiation, and Usage}
-	animal.py
+\begin{frame}[fragile]{Declaring the Iterator}
+	sum\_nums\_func.pyx
 	\begin{lstlisting}
-		# Explicit inheritance from object class
-		class Animal(object):
-		    # Explicit (and necessary) passing of self object
-		    def __init__(self, name_in, noise_in):
-		        self.name = name_in  # (*@ $\not\equiv$ @*) name = name_in
-		        self.noise = noise_in  # (*@ $\not\equiv$ @*) noise = noise_in
+		def sum_nums(n):
+		    s = 0
+		    (*@\colorbox{green!20}{cdef unsigned long i  \# $\leftarrow$ defines i as a unsigned long}@*)
+		    for i in range(n+1):
+		    	    s += i
+		    	return s
 		
-		dog = Animal("Rex", "woof")
-		print("{DOG} makes a {NOISE} noise".format(
-		    DOG=dog.name,
-		    NOISE=dog.noise
-		))
+		import sys
+		n = int(sys.argv[1])
+		print(sum_nums(n))
+	\end{lstlisting}
+	\pause
+	\begin{lstlisting}[language=Bash]
+		time python sum_nums_func.pyx 100000000  (*@\pause@*)# SyntaxError (*@\pause@*)
+		cython_build.sh sum_nums_func.pyx
+		time ./sum_nums_func 100000000  # (*@$\approx$@*) 12 seconds (Slightly faster than without the cdef)
 	\end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{Inheritance}
-	animal.py
+\begin{frame}[fragile]{Declaring the Sum}
+	sum\_nums\_func.pyx
 	\begin{lstlisting}
-		class Dog(Animal):
-		    def __init__(self, name):
-		        # This gets better in Python 3
-		        super(Dog, self).__init__(name, "woof")
-		    
-		    # NEED to accept self
-		    def wag_tail(self):
-		    	    print("{NAME} is happy".format(NAME=self.name))
-		 
-		 rex = Dog("Rex")
-		 rex.wag_tail()  # DON'T need to explicitly pass self
+		def sum_nums(n):
+		    (*@\colorbox{green!20}{cdef unsigned long}@*) s = 0
+		    cdef unsigned long i  # (*@$\leftarrow$@*) defines i as a unsigned long
+		    for i in range(n+1):
+		    	    s += i
+		    	return s
+		
+		import sys
+		n = int(sys.argv[1])
+		print(sum_nums(n))
+	\end{lstlisting}
+	\pause
+	\begin{lstlisting}[language=Bash]
+		cython_build.sh sum_nums_func.pyx
+		time ./sum_nums_func 100000000  # (*@$\approx$@*) 0.5 seconds (Slightly fasterer than without the cdef)
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Cython Command \& HTML Annotations}
+	\begin{lstlisting}[language=Bash]
+		cython -a --embed ${cython_file} -o ${c_file}
+	\end{lstlisting}
+	
+	\begin{description}[<+->]
+		\item[-o \$\{c\_file\}] Specifies the name of the resulting C file
+		\item[--embed] Compiles the C code with a main method 
+		\item[-a] Produces a helpful HTML file
+	\end{description}
+	
+	% Pass \thebeamerpauses to pause so that the text will appear one 'slide'
+	% after the descriptions. \thebeamerpauses holds the current number of 
+	% pauses in the current slide
+	\pause[\thebeamerpauses]
+	\emptyline
+	\emptyline
+	sum\_nums\_py.html \& sum\_nums\_cy.html
+\end{frame}
+
+\section{Function Declaration}
+\begin{frame}[fragile]{Return and Parameter Typing}
+	sum\_nums\_func.pyx
+	\begin{lstlisting}
+		(*@\colorbox{green!20}{cdef}@*) sum_nums((*@\colorbox{green!20}{unsigned long}@*) n):
+		    cdef unsigned long s = 0
+		    cdef unsigned long i
+		    for i in range(n+1):
+		    	    s += i
+		    	return s
+		
+		import sys
+		n = int(sys.argv[1])
+		print(sum_nums(n))
 	\end{lstlisting}
 \end{frame}
 
