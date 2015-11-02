@@ -242,8 +242,8 @@ static CYTHON_INLINE float __PYX_NAN() {
   #endif
 #endif
 
-#define __PYX_HAVE__clog
-#define __PYX_HAVE_API__clog
+#define __PYX_HAVE__clog_hard
+#define __PYX_HAVE_API__clog_hard
 #include "math.h"
 #ifdef _OPENMP
 #include <omp.h>
@@ -453,7 +453,7 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "clog.pyx",
+  "clog_hard.pyx",
 };
 
 /*--- Type declarations ---*/
@@ -579,14 +579,12 @@ static int __Pyx_check_binary_version(void);
 static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 
-/* Module declarations from 'libc.math' */
+/* Module declarations from 'clog_hard' */
+static double __pyx_f_9clog_hard_log_loop(double, unsigned long, int __pyx_skip_dispatch); /*proto*/
+#define __Pyx_MODULE_NAME "clog_hard"
+int __pyx_module_is_main_clog_hard = 0;
 
-/* Module declarations from 'clog' */
-static double __pyx_f_4clog_log_loop(double, unsigned long, int __pyx_skip_dispatch); /*proto*/
-#define __Pyx_MODULE_NAME "clog"
-int __pyx_module_is_main_clog = 0;
-
-/* Implementation of 'clog' */
+/* Implementation of 'clog_hard' */
 static PyObject *__pyx_builtin_range;
 static char __pyx_k_n[] = "n";
 static char __pyx_k_main[] = "__main__";
@@ -598,18 +596,18 @@ static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_n;
 static PyObject *__pyx_n_s_range;
 static PyObject *__pyx_n_s_test;
-static PyObject *__pyx_pf_4clog_log_loop(CYTHON_UNUSED PyObject *__pyx_self, double __pyx_v_n, unsigned long __pyx_v_iters); /* proto */
+static PyObject *__pyx_pf_9clog_hard_log_loop(CYTHON_UNUSED PyObject *__pyx_self, double __pyx_v_n, unsigned long __pyx_v_iters); /* proto */
 
-/* "clog.pyx":4
- * cimport libc.math as cmath
+/* "clog_hard.pyx":4
+ *     float log(float n)
  * 
  * cpdef double log_loop(double n, unsigned long iters):             # <<<<<<<<<<<<<<
  *     cdef unsigned long i
  *     cdef double s = 0
  */
 
-static PyObject *__pyx_pw_4clog_1log_loop(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static double __pyx_f_4clog_log_loop(double __pyx_v_n, unsigned long __pyx_v_iters, CYTHON_UNUSED int __pyx_skip_dispatch) {
+static PyObject *__pyx_pw_9clog_hard_1log_loop(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static double __pyx_f_9clog_hard_log_loop(double __pyx_v_n, unsigned long __pyx_v_iters, CYTHON_UNUSED int __pyx_skip_dispatch) {
   CYTHON_UNUSED unsigned long __pyx_v_i;
   double __pyx_v_s;
   double __pyx_r;
@@ -618,46 +616,46 @@ static double __pyx_f_4clog_log_loop(double __pyx_v_n, unsigned long __pyx_v_ite
   unsigned long __pyx_t_2;
   __Pyx_RefNannySetupContext("log_loop", 0);
 
-  /* "clog.pyx":6
+  /* "clog_hard.pyx":6
  * cpdef double log_loop(double n, unsigned long iters):
  *     cdef unsigned long i
  *     cdef double s = 0             # <<<<<<<<<<<<<<
  *     for i in range(iters):
- *         s += cmath.log(n)
+ *         s += log(n)
  */
   __pyx_v_s = 0.0;
 
-  /* "clog.pyx":7
+  /* "clog_hard.pyx":7
  *     cdef unsigned long i
  *     cdef double s = 0
  *     for i in range(iters):             # <<<<<<<<<<<<<<
- *         s += cmath.log(n)
+ *         s += log(n)
  * 
  */
   __pyx_t_1 = __pyx_v_iters;
   for (__pyx_t_2 = 0; __pyx_t_2 < __pyx_t_1; __pyx_t_2+=1) {
     __pyx_v_i = __pyx_t_2;
 
-    /* "clog.pyx":8
+    /* "clog_hard.pyx":8
  *     cdef double s = 0
  *     for i in range(iters):
- *         s += cmath.log(n)             # <<<<<<<<<<<<<<
+ *         s += log(n)             # <<<<<<<<<<<<<<
  * 
  *     return s
  */
     __pyx_v_s = (__pyx_v_s + log(__pyx_v_n));
   }
 
-  /* "clog.pyx":10
- *         s += cmath.log(n)
+  /* "clog_hard.pyx":10
+ *         s += log(n)
  * 
  *     return s             # <<<<<<<<<<<<<<
  */
   __pyx_r = __pyx_v_s;
   goto __pyx_L0;
 
-  /* "clog.pyx":4
- * cimport libc.math as cmath
+  /* "clog_hard.pyx":4
+ *     float log(float n)
  * 
  * cpdef double log_loop(double n, unsigned long iters):             # <<<<<<<<<<<<<<
  *     cdef unsigned long i
@@ -671,8 +669,8 @@ static double __pyx_f_4clog_log_loop(double __pyx_v_n, unsigned long __pyx_v_ite
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_4clog_1log_loop(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_pw_4clog_1log_loop(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_9clog_hard_1log_loop(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_9clog_hard_1log_loop(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   double __pyx_v_n;
   unsigned long __pyx_v_iters;
   int __pyx_lineno = 0;
@@ -720,18 +718,18 @@ static PyObject *__pyx_pw_4clog_1log_loop(PyObject *__pyx_self, PyObject *__pyx_
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("log_loop", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 4; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("clog.log_loop", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("clog_hard.log_loop", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_4clog_log_loop(__pyx_self, __pyx_v_n, __pyx_v_iters);
+  __pyx_r = __pyx_pf_9clog_hard_log_loop(__pyx_self, __pyx_v_n, __pyx_v_iters);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_4clog_log_loop(CYTHON_UNUSED PyObject *__pyx_self, double __pyx_v_n, unsigned long __pyx_v_iters) {
+static PyObject *__pyx_pf_9clog_hard_log_loop(CYTHON_UNUSED PyObject *__pyx_self, double __pyx_v_n, unsigned long __pyx_v_iters) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -740,7 +738,7 @@ static PyObject *__pyx_pf_4clog_log_loop(CYTHON_UNUSED PyObject *__pyx_self, dou
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("log_loop", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_f_4clog_log_loop(__pyx_v_n, __pyx_v_iters, 0)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 4; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_f_9clog_hard_log_loop(__pyx_v_n, __pyx_v_iters, 0)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 4; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -749,7 +747,7 @@ static PyObject *__pyx_pf_4clog_log_loop(CYTHON_UNUSED PyObject *__pyx_self, dou
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("clog.log_loop", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("clog_hard.log_loop", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -758,7 +756,7 @@ static PyObject *__pyx_pf_4clog_log_loop(CYTHON_UNUSED PyObject *__pyx_self, dou
 }
 
 static PyMethodDef __pyx_methods[] = {
-  {"log_loop", (PyCFunction)__pyx_pw_4clog_1log_loop, METH_VARARGS|METH_KEYWORDS, 0},
+  {"log_loop", (PyCFunction)__pyx_pw_9clog_hard_1log_loop, METH_VARARGS|METH_KEYWORDS, 0},
   {0, 0, 0, 0}
 };
 
@@ -769,7 +767,7 @@ static struct PyModuleDef __pyx_moduledef = {
   #else
     PyModuleDef_HEAD_INIT,
   #endif
-    "clog",
+    "clog_hard",
     0, /* m_doc */
     -1, /* m_size */
     __pyx_methods /* m_methods */,
@@ -810,11 +808,11 @@ static int __Pyx_InitGlobals(void) {
 }
 
 #if PY_MAJOR_VERSION < 3
-PyMODINIT_FUNC initclog(void); /*proto*/
-PyMODINIT_FUNC initclog(void)
+PyMODINIT_FUNC initclog_hard(void); /*proto*/
+PyMODINIT_FUNC initclog_hard(void)
 #else
-PyMODINIT_FUNC PyInit_clog(void); /*proto*/
-PyMODINIT_FUNC PyInit_clog(void)
+PyMODINIT_FUNC PyInit_clog_hard(void); /*proto*/
+PyMODINIT_FUNC PyInit_clog_hard(void)
 #endif
 {
   PyObject *__pyx_t_1 = NULL;
@@ -831,7 +829,7 @@ PyMODINIT_FUNC PyInit_clog(void)
           Py_FatalError("failed to import 'refnanny' module");
   }
   #endif
-  __Pyx_RefNannySetupContext("PyMODINIT_FUNC PyInit_clog(void)", 0);
+  __Pyx_RefNannySetupContext("PyMODINIT_FUNC PyInit_clog_hard(void)", 0);
   if (__Pyx_check_binary_version() < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_empty_tuple = PyTuple_New(0); if (unlikely(!__pyx_empty_tuple)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_empty_bytes = PyBytes_FromStringAndSize("", 0); if (unlikely(!__pyx_empty_bytes)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -859,7 +857,7 @@ PyMODINIT_FUNC PyInit_clog(void)
   #endif
   /*--- Module creation code ---*/
   #if PY_MAJOR_VERSION < 3
-  __pyx_m = Py_InitModule4("clog", __pyx_methods, 0, 0, PYTHON_API_VERSION); Py_XINCREF(__pyx_m);
+  __pyx_m = Py_InitModule4("clog_hard", __pyx_methods, 0, 0, PYTHON_API_VERSION); Py_XINCREF(__pyx_m);
   #else
   __pyx_m = PyModule_Create(&__pyx_moduledef);
   #endif
@@ -876,14 +874,14 @@ PyMODINIT_FUNC PyInit_clog(void)
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   #endif
-  if (__pyx_module_is_main_clog) {
+  if (__pyx_module_is_main_clog_hard) {
     if (PyObject_SetAttrString(__pyx_m, "__name__", __pyx_n_s_main) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    if (!PyDict_GetItemString(modules, "clog")) {
-      if (unlikely(PyDict_SetItemString(modules, "clog", __pyx_m) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (!PyDict_GetItemString(modules, "clog_hard")) {
+      if (unlikely(PyDict_SetItemString(modules, "clog_hard", __pyx_m) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
   }
   #endif
@@ -903,9 +901,9 @@ PyMODINIT_FUNC PyInit_clog(void)
   if (__Pyx_patch_abc() < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   #endif
 
-  /* "clog.pyx":1
- * # from libc.math cimport log             # <<<<<<<<<<<<<<
- * cimport libc.math as cmath
+  /* "clog_hard.pyx":1
+ * cdef extern from "math.h":             # <<<<<<<<<<<<<<
+ *     float log(float n)
  * 
  */
   __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -920,11 +918,11 @@ PyMODINIT_FUNC PyInit_clog(void)
   __Pyx_XDECREF(__pyx_t_1);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init clog", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init clog_hard", __pyx_clineno, __pyx_lineno, __pyx_filename);
     }
     Py_DECREF(__pyx_m); __pyx_m = 0;
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init clog");
+    PyErr_SetString(PyExc_ImportError, "init clog_hard");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();

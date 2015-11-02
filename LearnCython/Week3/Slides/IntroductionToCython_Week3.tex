@@ -42,7 +42,7 @@
   tabsize=2,
   language=Python,
   morekeywords={as, None, with, yield, True, False, self, cdef},
-  emph={cpdef},
+  emph={cpdef, cimport},
   emphstyle=\color{red}
 }
 
@@ -181,6 +181,7 @@ print(sn.(*@\colorbox{green!20}{sum\_nums\_wrapper}@*)(10))
 \end{frame}
 
 \section{Using C Libraries}
+\subsection{The Easy Way}
 \begin{frame}[fragile]{Log Loops}
     clog.pyx
     \lstinputlisting{../Examples/CImports/clog.pyx}
@@ -212,6 +213,48 @@ print(pylog.log_loop(100,000,000, 10,000,000))
 	
 	\vspace{1cm}
 
+\end{frame}
+
+\subsection{The Hard Way}
+\begin{frame}[fragile]{External Definition}
+	clog\_hard.pyx
+	\lstinputlisting{../Examples/CImports/clog_hard.pyx}
+\end{frame}
+
+\begin{frame}[fragile]{Testing the Hard Way}
+	\begin{minipage}{0.45\linewidth}
+		clog\_hard: 184,206,807.418
+
+		clog\_hard took: 0.77s
+	\end{minipage}
+	\begin{minipage}{0.45\linewidth}
+		pylog: 184,206,807.418
+	
+		pylog took: 8.08s
+	\end{minipage}
+\end{frame}
+
+\begin{frame}[fragile]{Comparison}
+	\begin{minipage}{0.45\linewidth}
+		cimport
+	\end{minipage}
+	\begin{minipage}{0.45\linewidth}
+		cdef extern
+	\end{minipage}
+	
+	\begin{minipage}{0.45\linewidth}
+		\begin{itemize}
+			\item more generic
+			\item simpler
+		\end{itemize}
+	\end{minipage}
+	\begin{minipage}{0.45\linewidth}		
+		\begin{itemize}
+			\item more explicit
+			\item works for everything
+			\item<2-> can be moved to a cython header file
+		\end{itemize}
+	\end{minipage}
 \end{frame}
 
 \end{document}
