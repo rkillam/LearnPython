@@ -1,0 +1,168 @@
+\documentclass[11pt]{beamer}
+\usetheme{Copenhagen}
+\usecolortheme{dolphin}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{datetime}
+\usepackage{fancyhdr}
+\usepackage{gensymb}
+\usepackage{graphicx}
+\usepackage{lastpage}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{pgfpages}
+\usepackage{setspace}
+\usepackage{tikz}
+
+% Code snippets
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{
+  basicstyle={\small\ttfamily},
+  breakatwhitespace=true,
+  breaklines=true,
+  columns=flexible,
+  commentstyle=\color{dkgreen},
+  escapeinside={(*@}{@*)},
+  keywordstyle=\color{blue},
+  numbers=left,
+  numberstyle=\color{gray},
+  showstringspaces=false,
+  stringstyle=\color{mauve},
+  tabsize=2,
+  language=Python,
+  morekeywords={as, None, with, yield, True, False, self, cdef},
+  emph={cpdef},
+  emphstyle=\color{red}
+}
+
+\newcommand{\code}[1]{
+\begin{lstlisting}
+#1
+\end{lstlisting}}
+
+\newcommand{\emptyline}{$ $\\}
+
+\author{Richard Killam}
+\title{Introduction to Cython - Week 2}
+
+%\setbeamercovered{transparent} 
+
+\setbeamertemplate{navigation symbols}{}
+%\setbeamertemplate{note page}[plain]
+%\setbeameroption{show notes on second screen=right}
+
+\addtobeamertemplate{frametitle}{}{
+\begin{tikzpicture}[remember picture,overlay]
+\node[anchor=north east,yshift=0pt] at (current page.north east) {\includegraphics[height=0.8cm]{Cython-logo.png}};
+\end{tikzpicture}}
+
+%\date{} 
+%\institute{} 
+%\logo{} 
+%\subject{} 
+
+\begin{document}
+\centering
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+	\begin{multicols}{2}
+		\tableofcontents
+	\end{multicols}
+\end{frame}
+
+\section{Cython as a Module}
+\begin{frame}[fragile]{sum\_nums.pyx}
+	\pause
+	\lstinputlisting{../Examples/CythonModule/sum_nums.pyx}
+\end{frame}
+
+\begin{frame}[fragile]{run\_sum\_nums.py}
+	\raggedright
+	\pause
+	\lstinputlisting{../Examples/CythonModule/run_sum_nums.py}
+	
+	\pause
+	python setup.py build\_ext --inplace
+	
+	python run\_sum\_nums.py
+	
+	\pause
+	$>>$ AttributeError: 'module' object has no attribute 'sum\_nums'
+	
+\end{frame}
+
+\begin{frame}[fragile]{The Fix}
+	\raggedright
+	
+	sum\_nums.pyx	
+	\begin{lstlisting}
+def sum_nums_wrapper(n):
+    return sum_nums(int(n))
+	\end{lstlisting}
+	
+	\vspace{1cm}	
+	
+	\pause
+	run\_sum\_nums.py
+	\begin{lstlisting}
+import sum_nums as sn
+		
+print(sn.(*@\colorbox{green!20}{sum\_nums\_wrapper}@*)(10))
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Testing The Fix}
+	\raggedright
+	python setup.py build\_ext --inplace
+	
+	python rum\_sum\_nums.py
+	
+	\pause
+	$>>$ 55
+	
+\end{frame}
+
+\begin{frame}[fragile]{The Sugar}
+	\raggedright
+	sum\_nums.pyx
+	\begin{lstlisting}
+(*@\colorbox{green!20}{cpdef}@*) unsigned long long sum_nums(unsigned long n):
+    cdef unsigned long long s = 0
+    cdef unsigned long i
+    for i in range(1, n+1):
+        s += i
+    return s
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Using The Sugar}
+	\raggedright
+	run\_sum\_nums.py
+	\lstinputlisting{../Examples/CythonModule/run_sum_nums.py}
+	
+	\pause
+	python setup.py build\_ext --inplace
+	
+	python run\_sum\_nums.py
+	
+	\pause
+	$>>$ 55
+	
+\end{frame}
+
+\end{document}
