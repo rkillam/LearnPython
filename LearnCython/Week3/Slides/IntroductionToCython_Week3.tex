@@ -78,10 +78,8 @@
     \titlepage
 \end{frame}
 
-\begin{frame}{Outline}
-    \begin{multicols}{2}
-        \tableofcontents
-    \end{multicols}
+\begin{frame}{Outline}	
+	\tableofcontents
 \end{frame}
 
 \section{Cython as a Module}
@@ -109,7 +107,7 @@
 
 \begin{frame}[fragile]{The Fix}
 
-    sum\_nums.pyx
+    Add to sum\_nums.pyx
     \begin{lstlisting}
 def sum_nums_wrapper(n):
     return sum_nums(int(n))
@@ -165,7 +163,7 @@ print(sn.(*@\colorbox{green!20}{sum\_nums\_wrapper}@*)(10))
 \end{frame}
 
 \begin{frame}[fragile]{Exercise}
-    sum\_logs.pyx
+    sum\_logs.pyx (The log function can be found in the math module)
     \pause
     \lstinputlisting{../Examples/CImports/pylog.pyx}
 \end{frame}
