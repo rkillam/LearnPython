@@ -1,0 +1,338 @@
+\documentclass[11pt]{beamer}
+\usetheme{Copenhagen}
+\usecolortheme{dolphin}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{datetime}
+\usepackage{fancyhdr}
+\usepackage{gensymb}
+\usepackage{graphicx}
+\usepackage{lastpage}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{pgfpages}
+\usepackage{setspace}
+\usepackage{tikz}
+
+% Code snippets
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{
+  basicstyle={\small\ttfamily},
+  breakatwhitespace=true,
+  breaklines=true,
+  columns=flexible,
+  commentstyle=\color{dkgreen},
+  escapeinside={(*@}{@*)},
+  keywordstyle=\color{blue},
+  numbers=left,
+  numberstyle=\color{gray},
+  showstringspaces=false,
+  stringstyle=\color{mauve},
+  tabsize=2,
+  language=Python,
+  morekeywords={as, None, with, yield, True, False, self, cdef},
+  emph={cpdef, cimport},
+  emphstyle=\color{red}
+}
+
+\newcommand{\code}[1]{
+\begin{lstlisting}
+#1
+\end{lstlisting}}
+
+\newcommand{\emptyline}{$ $\\}
+
+\author{Richard Killam}
+\title{Introduction to Cython - Week 3 \\ (Alternate: Python Development)}
+
+%\setbeamercovered{transparent}
+
+\setbeamertemplate{navigation symbols}{}
+%\setbeamertemplate{note page}[plain]
+%\setbeameroption{show notes on second screen=right}
+
+\addtobeamertemplate{frametitle}{}{
+\begin{tikzpicture}[remember picture,overlay]
+\node[anchor=north east,yshift=0pt] at (current page.north east) {\includegraphics[height=0.8cm]{Cython-logo.png}};
+\end{tikzpicture}}
+
+%\date{}
+%\institute{}
+%\logo{}
+%\subject{}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+\section{Basic Data Structures}
+\subsection{list}
+\begin{frame}[fragile]{List Creation}
+    \begin{itemize}
+        \item<1-> List multiplication (works for strings too)
+        \begin{lstlisting}
+my_list = [[1] * 2] * 2 (*@$\Rightarrow$@*) [[1, 1],
+                               [1, 1]]
+        \end{lstlisting}
+
+        \item<2-> List comprehension
+        \begin{lstlisting}
+[2**i for i in xrange(5)] (*@$\Rightarrow$@*) [1, 2, 4, 8, 16]
+        \end{lstlisting}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{List Indexing}
+    \begin{itemize}
+        \item<1-> my\_list[my\_list.length - 1] \uncover<2->{v.s. my\_list[-1]}
+
+        \item<3-> $ $ \\
+        \begin{lstlisting}[language=Java]
+for(int i = 1; i < my_list.length; i += 2)
+        \end{lstlisting}
+        \uncover<4->{v.s. my\_list[1::2]}
+
+        \item<5->
+        \begin{itemize}
+                \item[] range(5)[1:]    $\:\:\:\:\:\Rightarrow$ [1, 2, 3, 4]
+                \item[] range(5)[:-1]   $\:\:\:\:\Rightarrow$ [0, 1, 2, 3]
+                \item[] range(5)[1:3]   $\:\:\:\Rightarrow$ [1, 2]
+                \item[] range(10)[::2]  $\:\:\Rightarrow$ [0, 2, 4, 6, 8]
+                \item[] range(10)[1::2] $\Rightarrow$ [1, 3, 5, 7, 9]
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\subsection{set}
+\begin{frame}[fragile]{Sets}
+    \begin{itemize}
+        \item<1-> Remove duplicates:
+        \begin{lstlisting}
+set([1, 2, 3, 4, 1, 2, 3, 4]) (*@$\Rightarrow$@*) {1, 2, 3, 4}
+        \end{lstlisting}
+
+        \item<2-> $ $ \\
+        \begin{lstlisting}
+if x in my_set:
+        \end{lstlisting}
+        \begin{itemize}
+            \item<2->[Avg:] \textbf{O(1)}
+            \item<2->[Worst:] O(n)
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Set Operations}
+    \begin{itemize}
+        \item set1 - set2 == set1.difference(set2) \\ O(len(set1))
+        \pause
+
+        \item set1 \& set2 == set1.intersection(set2) \\ Avg: O(min(len(set1, set2)))
+        \pause
+
+        \item set1 $|$ set2  == set1.union(set2) \\ O(len(set1)+len(set2))
+        \pause
+
+        \item set1 \^{} set2 == set1.symmetric\_difference(set2) \\ Avg: O(len(set1))
+    \end{itemize}
+\end{frame}
+
+\subsection{dict}
+\begin{frame}[fragile]{Dictionaries}
+    \begin{itemize}
+        \item Built-in hash map
+
+        \item O(1) lookups:
+        \begin{lstlisting}
+my_dict.get(key)  # None if key does not exist
+        \end{lstlisting}
+
+        \item dict comprehension:
+        \begin{lstlisting}
+{obj.name: obj.data for obj in my_objs}
+        \end{lstlisting}
+
+        \item Easy looping:
+        \begin{lstlisting}
+for key, val in my_dict.items():
+    print('{}: {}'.format(key, val))
+        \end{lstlisting}
+    \end{itemize}
+\end{frame}
+
+\section{Language Constructs}
+\subsection{Context Managers}
+\begin{frame}[fragile]{What are Context Managers?}
+    Handles allocation and release of a resource \\
+    \emptyline
+    \emptyline
+
+    \begin{minipage}{0.45\linewidth}
+        This:
+    \end{minipage}
+    \begin{minipage}{0.45\linewidth}
+        Becomes:
+    \end{minipage}
+
+    \begin{minipage}{0.45\linewidth}
+        % FIXME: have a better representation of what with open does
+        \begin{lstlisting}
+f = None
+try:
+    f = open('f.txt', 'r')
+    # Do stuff...
+finally:
+    if f is not None:
+        f.close()
+        \end{lstlisting}
+    \end{minipage}
+    \pause
+    \begin{minipage}{0.45\linewidth}
+        \begin{lstlisting}
+with open('f.txt', 'r') as f:
+    # Do stuff...
+        \end{lstlisting}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}[fragile]{Why use Context Managers?}
+    \begin{itemize}
+        \item Avoid verbose repeat code
+        \item Ensure release is handled properly
+        \item Variable scope retention
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Context Manager Uses}
+    \begin{itemize}
+        \item Ensure successful db transaction before commit
+        \item Holding some I/O
+        \item Locking a thread
+        \item Opening a file
+    \end{itemize}
+\end{frame}
+
+\subsection{Decorators}
+\begin{frame}[fragile]{What are Decorators?}
+    Classes or higher order functions that wrap a given function or class \\
+    \emptyline
+    \emptyline
+
+    \begin{minipage}{0.45\linewidth}
+        This:
+    \end{minipage}
+    \begin{minipage}{0.45\linewidth}
+        Becomes:
+    \end{minipage}
+
+    \begin{minipage}{0.45\linewidth}
+        \begin{lstlisting}
+def my_f(...):
+    Do stuff...
+    ret = f(...)
+    Do more stuff...
+    return ret
+        \end{lstlisting}
+    \end{minipage}
+    \pause
+    \begin{minipage}{0.45\linewidth}
+        \begin{lstlisting}
+@my_decorator
+def f(...):
+    ...
+        \end{lstlisting}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}[fragile]{Why use Decorators?}
+    \begin{itemize}
+        \item Avoid verbose repeat code
+        \item Closures allow for state retention:
+        \begin{itemize}
+            \item[] aggregation, memoization, etc
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Decorator Uses}
+    \begin{itemize}
+        \item Argument/return checking
+        \item Function timeout
+        \item Logging (decorate class)
+        \item Memoization
+        \item Thunkifying (Parallelizing)
+    \end{itemize}
+\end{frame}
+
+\subsection{Generators}
+\begin{frame}[fragile]{What are Generators?}
+    An easy way to support iterations \\
+
+    \begin{minipage}{0.45\linewidth}
+        This:
+    \end{minipage}
+    \begin{minipage}{0.45\linewidth}
+        Becomes:
+    \end{minipage}
+
+    \begin{minipage}{0.45\linewidth}
+        \begin{lstlisting}
+class Test(object):
+    def __init__(sf,s,e):
+        sf.c = s
+        sf.e = e
+    def __iter__(sf):
+        return sf
+    def next(sf):
+        if sf.c>=sf.e:
+            raise StopIter
+        r = sf.c
+        sf.c += 1
+        return r
+        \end{lstlisting}
+    \end{minipage}
+    \pause
+    \begin{minipage}{0.45\linewidth}
+        \begin{lstlisting}
+def test(start, end):
+    while start < end:
+        yield start
+        start += 1
+        \end{lstlisting}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}[fragile]{Why use Generators?}
+    \begin{itemize}
+        \item Lazy evaluation
+        \item Less memory usage
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Generator Uses}
+    \begin{itemize}
+        \item Co-routines (producer/consumer) using two-way generators
+        \item Interpolations/regressions (unknown number of iterations)
+        \item Process text files
+    \end{itemize}
+\end{frame}
+
+\end{document}
+
